@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('html/basic/head.html',{
+   "title":"",
+   "desc":"",
+   "keys":"",
+   "ogtype":"",
+   "ogurl":"",
+   "ogtitle":"",
+   "ogdescription":"",
+   "ogsitename":"",
+   "ogimage":"",
+})
+<body>
+    <div class="page__wrapper profile-page">
+        @@include('html/components/sideNavDesktop.html',{})
+        <div class="main__content">
+            <div id="auth-header-box">
+                @@include('html/basic/header-noauth.html', {})
+                @@include('html/basic/header-auth.html', {})
+            </div>
+            <main>
+                <section class="verify_acc">
+                    <div class="verifyAcc__message noVerify container">
+                        <div class="message__ico">
+                        <i class="ico-shield-close"></i>
+                        </div>
+                        <div class="message__data">
+                        <span class="title">Unverified Seller</span>
+                        <span class="subtext">To provide a feedback about the store, you must log in to your account</span>
+                        </div>
+                    </div>
+                </section>
+                <section class="profile-settings">
+                    <div class="container">
+                        <div class="profile-settings__content">
+                            <div class="profile-settings__cover">
+                                <img src="img/tests/profile/cover.png" alt="cover">
+                                <button class="profile-settings__cover-btn profile-settings__cover-edit-btn btn bg--transparent-black" type="button">
+                                    <img src="img/icons/pen.svg" alt="pen">
+                                    <span>Edit Profile</span>
+                                </button>
+                            </div>
+                            <div class="profile-settings__info box">
+                                <div class="profile-settings__info-box">
+                                    <div class="profile-settings__info-avatar">
+                                        <img src="img/tests/profile/avatar.png" alt="avatar">
+                                    </div>
+                                    <div class="profile-settings__info-text">
+                                        <h3 class="profile-settings__info-name">Tele Go</h3>
+                                        <div class="profile-settings__info-balance">
+                                            <span class="color--gray">Seller balance:</span>&nbsp;
+                                            <span class="color--green">100 000 ₽</span>
+                                        </div>
+                                        <div class="profile-settings__info-rating">
+                                            <div class="profile-settings__rating-stars">
+                                                <i class="ico-star active"></i>
+                                                <i class="ico-star active"></i>
+                                                <i class="ico-star active"></i>
+                                                <i class="ico-star active"></i>
+                                                <i class="ico-star active"></i>
+                                            </div>
+                                            <div class="profile-settings__info-rating-score color--gray">
+                                                <span>5</span>/<span>5</span>
+                                            </div>
+                                            <div class="profile-settings__info-rating-sales color--gray">
+                                                <span id="sales-count">242523</span>&nbsp;
+                                                <span>Sales</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="profile-settings__add-offer-btn profile-settings__btn btn bg--transparent-black" id="add-offer-btn" type="button">
+                                    <span class="plus"></span>
+                                    <span>Add Offer</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="tabs container">
+                    <div class="tabs__nav">
+                        <button class="tabs__button active" data-tab="Offers">Offers</button>
+                        <button class="tabs__button" data-tab="Info">Info</button>
+                    </div>
+                    <div class="tabs__content">
+                        <div class="tab active" id="Offers">
+                            <div>
+                                <div class="mainContent">
+                                    <section class="profile-products">
+                                        <div class="profile-products__popular profile-products__box">
+                                            <h3 class="profile-products__grid-title">Popular</h3>
+                                            <div class="profile-products__grid">
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="profile-products__all profile-products__box">
+                                            <h3 class="profile-products__grid-title">All</h3>
+                                            <div class="profile-products__grid">
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product__item">
+                                                    <a class="product" href="#" title="name">
+                                                    <div class="product__wrapper">
+                                                        <div class="product__tags">
+                                                            <span class="tag icon"><i class="ico-shield"></i></span>
+                                                            <span class="tag">Confirmed by mail</span>
+                                                            <span class="tag">Tdata</span>
+                                                            <span class="tag">Europe</span>
+                                                        </div>
+                                                        <div class="product__data">
+                                                            <div class="product__img">
+                                                                <img src="@img/tests/product.png" alt="name">
+                                                            </div>
+                                                            <div class="data__wrapper">
+                                                                <div class="left__side">
+                                                                <div class="rating__wrapper">
+                                                                    <i class="ico-star"></i>
+                                                                    <span class="rating">5</span>
+                                                                </div>
+                                                                <span class="name">NVS Shop</span>
+                                                                </div>
+                                                                <div class="right__side">
+                                                                <div class="avatars__wrapper">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                    <img src="@img/tests/ava.png" alt="name">
+                                                                </div>
+                                                                <span class="seller">5 sellers</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content__area">
+                                                                <span class="name">Twitter accounts | 2FA | Avatar added | First tweet made | Verified by email (included)</span>
+                                                                <div class="sub__content">
+                                                                <p>Unlimited IPs + Sessions. Pay only for gb.</p>
+                                                                </div>
+                                                                <button class="openContent"><i class="ico-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttom">
+                                                            <div class="price">
+                                                                <span class="currency">$</span>
+                                                                <span class="value">0,30</span>
+                                                            </div>
+                                                            <div class="itemsLeft">
+                                                                <span class="desk">Only <span>120</span> pieces left</span>
+                                                                <div class="progress-bar" style="--remaining: 75%;">
+                                                                <div class="remaining"></div>
+                                                                <span class="value">75%</span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="order__action">
+                                                                <button><i class="ico-cart"></i></button>
+                                                                <div class="order__counter">
+                                                                <form action="">
+                                                                    <button>-</button>
+                                                                    <input type="text" placeholder="1">
+                                                                    <button>+</button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pagination-box">
+                                            <button class="pagination-box__btn pagination-box__first" type="button">
+                                                <img src="img/icons/arrow/double-arrow-to-left.svg" alt="">
+                                            </button>
+                                            <button class="pagination-box__btn pagination-box__previous" type="button">
+                                                <img src="img/icons/arrow/arrow-to-left.svg" alt="">
+                                            </button>
+                                            <button class="pagination-box__btn" type="button">1</button>
+                                            <button class="pagination-box__btn" type="button" disabled>...</button>
+                                            <button class="pagination-box__btn" type="button">23</button>
+                                            <button class="pagination-box__btn active" type="button">24</button>
+                                            <button class="pagination-box__btn" type="button">25</button>
+                                            <button class="pagination-box__btn" type="button" disabled>...</button>
+                                            <button class="pagination-box__btn" type="button">99</button>
+                                            <button class="pagination-box__btn pagination-box__next" type="button">
+                                                <img src="img/icons/arrow/arrow-to-right.svg" alt="">
+                                            </button>
+                                            <button class="pagination-box__btn pagination-box__last" type="button">
+                                                <img src="img/icons/arrow/double-arrow-to-right.svg" alt="">
+                                            </button>
+                                        </div>
+                                    </section>
+                                    <section class="profile-reviews">
+                                        <div class="profile-reviews__row profile-reviews__row--top">
+                                            <h3 class="profile-reviews__title">Reviews</h3>
+                                            <div class="tabs">
+                                                <div class="tabs__nav">
+                                                    <button class="tabs__button active" data-tab="profile-offer-reviews-all">All</button>
+                                                    <button class="tabs__button" data-tab="profile-offer-reviews-seller">Оставил он</button>
+                                                    <button class="tabs__button" data-tab="profile-offer-reviews-users">Оставили ему</button>
+                                                </div>
+                                                <div class="tab active" id="profile-offer-reviews-all">
+
+                                                </div>
+                                                <div class="tab" id="profile-offer-reviews-seller"></div>
+                                                <div class="tab" id="profile-offer-reviews-users"></div>
+                                            </div>
+                                        </div>
+                                        <div class="profile-reviews__column">
+                                            <div class="profile-reviews__info box">
+                                                <h3 class="profile-reviews__info-title">Average seller rate <span id="reviews-rate">5</span> (<span id="reviews-count">289</span>)</h3>
+                                                <div class="profile-reviews__info-rating">
+                                                    <span class="profile-reviews__info-rating-score">5.0</span>
+                                                    <div class="profile-reviews__info-rating-stars">
+                                                        <i class="ico-star active"></i>
+                                                        <i class="ico-star active"></i>
+                                                        <i class="ico-star active"></i>
+                                                        <i class="ico-star active"></i>
+                                                        <i class="ico-star active"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-reviews__info-rating-desc">
+                                                    <p>To provide a feedback about the seller, you must buy this product on $10</p>
+                                                </div>
+                                            </div>
+                                            <div class="profile-reviews__card box">
+                                                <div class="profile-reviews__card-avatar">
+                                                    <img src="img/tests/profile/avatar.png" alt="avatar">
+                                                </div>
+                                                <div class="profile-reviews__card-text">
+                                                    <h3 class="profile-reviews__card-title">James</h3>
+                                                    <p class="profile-reviews__card-caption">GMAIL TRUST NUMBER CONFIRMED SUBMAIL BEST ACCOUNT</p>
+                                                    <div class="profile-reviews__card-desc">
+                                                        <span>Comment:</span>
+                                                        <div>
+                                                            <p>The mails are good. I recommend them.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-reviews__card-info">
+                                                    <div class="profile-reviews__card-rating">
+                                                        <span class="profile-reviews__card-rating-score">5.0</span>
+                                                        <div class="profile-reviews__card-rating-stars">
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="profile-reviews__card-meta">
+                                                        <div class="profile-reviews__card-date"><span>10/9/2024</span>,</div>&nbsp;
+                                                        <div class="profile-reviews__card-time"><span>4:04:30 PM</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="profile-reviews__card box">
+                                                <div class="profile-reviews__card-avatar">
+                                                    <img src="img/tests/profile/avatar.png" alt="avatar">
+                                                </div>
+                                                <div class="profile-reviews__card-text">
+                                                    <h3 class="profile-reviews__card-title">James</h3>
+                                                    <p class="profile-reviews__card-caption">GMAIL TRUST NUMBER CONFIRMED SUBMAIL BEST ACCOUNT</p>
+                                                    <div class="profile-reviews__card-desc">
+                                                        <span>Comment:</span>
+                                                        <div>
+                                                            <p>The mails are good. I recommend them.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-reviews__card-info">
+                                                    <div class="profile-reviews__card-rating">
+                                                        <span class="profile-reviews__card-rating-score">5.0</span>
+                                                        <div class="profile-reviews__card-rating-stars">
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="profile-reviews__card-meta">
+                                                        <div class="profile-reviews__card-date"><span>10/9/2024</span>,</div>&nbsp;
+                                                        <div class="profile-reviews__card-time"><span>4:04:30 PM</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="profile-reviews__card box">
+                                                <div class="profile-reviews__card-avatar">
+                                                    <img src="img/tests/profile/avatar.png" alt="avatar">
+                                                </div>
+                                                <div class="profile-reviews__card-text">
+                                                    <h3 class="profile-reviews__card-title">James</h3>
+                                                    <p class="profile-reviews__card-caption">GMAIL TRUST NUMBER CONFIRMED SUBMAIL BEST ACCOUNT</p>
+                                                    <div class="profile-reviews__card-desc">
+                                                        <span>Comment:</span>
+                                                        <div>
+                                                            <p>The mails are good. I recommend them.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-reviews__card-info">
+                                                    <div class="profile-reviews__card-rating">
+                                                        <span class="profile-reviews__card-rating-score">5.0</span>
+                                                        <div class="profile-reviews__card-rating-stars">
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="profile-reviews__card-meta">
+                                                        <div class="profile-reviews__card-date"><span>10/9/2024</span>,</div>&nbsp;
+                                                        <div class="profile-reviews__card-time"><span>4:04:30 PM</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="profile-reviews__card box">
+                                                <div class="profile-reviews__card-avatar">
+                                                    <img src="img/tests/profile/avatar.png" alt="avatar">
+                                                </div>
+                                                <div class="profile-reviews__card-text">
+                                                    <h3 class="profile-reviews__card-title">James</h3>
+                                                    <p class="profile-reviews__card-caption">GMAIL TRUST NUMBER CONFIRMED SUBMAIL BEST ACCOUNT</p>
+                                                    <div class="profile-reviews__card-desc">
+                                                        <span>Comment:</span>
+                                                        <div>
+                                                            <p>The mails are good. I recommend them.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-reviews__card-info">
+                                                    <div class="profile-reviews__card-rating">
+                                                        <span class="profile-reviews__card-rating-score">5.0</span>
+                                                        <div class="profile-reviews__card-rating-stars">
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="profile-reviews__card-meta">
+                                                        <div class="profile-reviews__card-date"><span>10/9/2024</span>,</div>&nbsp;
+                                                        <div class="profile-reviews__card-time"><span>4:04:30 PM</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="profile-reviews__card box">
+                                                <div class="profile-reviews__card-avatar">
+                                                    <img src="img/tests/profile/avatar.png" alt="avatar">
+                                                </div>
+                                                <div class="profile-reviews__card-text">
+                                                    <h3 class="profile-reviews__card-title">James</h3>
+                                                    <p class="profile-reviews__card-caption">GMAIL TRUST NUMBER CONFIRMED SUBMAIL BEST ACCOUNT</p>
+                                                    <div class="profile-reviews__card-desc">
+                                                        <span>Comment:</span>
+                                                        <div>
+                                                            <p>The mails are good. I recommend them.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-reviews__card-info">
+                                                    <div class="profile-reviews__card-rating">
+                                                        <span class="profile-reviews__card-rating-score">5.0</span>
+                                                        <div class="profile-reviews__card-rating-stars">
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                            <i class="ico-star active"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="profile-reviews__card-meta">
+                                                        <div class="profile-reviews__card-date"><span>10/9/2024</span>,</div>&nbsp;
+                                                        <div class="profile-reviews__card-time"><span>4:04:30 PM</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pagination-box">
+                                            <button class="pagination-box__btn pagination-box__first" type="button">
+                                                <img src="img/icons/arrow/double-arrow-to-left.svg" alt="">
+                                            </button>
+                                            <button class="pagination-box__btn pagination-box__previous" type="button">
+                                                <img src="img/icons/arrow/arrow-to-left.svg" alt="">
+                                            </button>
+                                            <button class="pagination-box__btn" type="button">1</button>
+                                            <button class="pagination-box__btn" type="button" disabled>...</button>
+                                            <button class="pagination-box__btn" type="button">23</button>
+                                            <button class="pagination-box__btn active" type="button">24</button>
+                                            <button class="pagination-box__btn" type="button">25</button>
+                                            <button class="pagination-box__btn" type="button" disabled>...</button>
+                                            <button class="pagination-box__btn" type="button">99</button>
+                                            <button class="pagination-box__btn pagination-box__next" type="button">
+                                                <img src="img/icons/arrow/arrow-to-right.svg" alt="">
+                                            </button>
+                                            <button class="pagination-box__btn pagination-box__last" type="button">
+                                                <img src="img/icons/arrow/double-arrow-to-right.svg" alt="">
+                                            </button>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab active" id="Offers">
+                            <div class="innerContent__wrapper">
+                            <div class="mainContent">
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

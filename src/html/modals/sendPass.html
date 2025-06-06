@@ -1,0 +1,27 @@
+<div class="hystmodal" id="forgotPassword" aria-hidden="true">
+  <div class="hystmodal__wrap">
+      <div class="hystmodal__window baseModal" role="dialog" aria-modal="true">
+          <span data-hystclose class="ico-close"></span>
+          <div class="form__data">
+           <div class="form__header">
+               <p class="title">Reset password</p>
+           </div>
+           <form action="" method="">
+              <div class="form__fields">
+                @@include('../elements/forms/input-placetop.html',{
+                  'id':'reEmail',
+                  'type':'email',
+                  'name':'email',
+                  'placeholder':'',
+                  'Label':'Email',
+                  'required':'required'
+                })
+              </div>
+              <div class="form__action">
+                <button type="submit" disabled>Send code</button>
+              </div>
+           </form>
+          </div>
+      </div>
+  </div>
+</div>
