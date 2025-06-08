@@ -1,5 +1,7 @@
 "use client"
+
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { InputPlacetop } from "../forms/input-placetop";
 
 interface Props {
@@ -45,9 +47,9 @@ export const Cart: React.FC<Props> = ({ list }) => {
               {list.length > 0
                 ? <div className="cartProducts__wrapper">
                 {list.map(({ service, shop, productName, price, currency }) => (
-                  <div className="cart__item">
+                  <div className="cart__item" key={uuidv4()}>
                     <div className="ava__wrapper">
-                      <img src="@img/tests/ava.png" alt="name" />
+                      <img src="/img/tests/ava.png" alt="name" />
                     </div>
                     <div className="product__data">
                       <div className="top__data">

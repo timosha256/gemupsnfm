@@ -1,3 +1,8 @@
+interface ILineActive {
+  active: boolean
+  name: string
+}
+
 interface Props {
   active: boolean
   name: string

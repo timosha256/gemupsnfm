@@ -1,5 +1,5 @@
 interface Props {
-    initial: string
+    initial?: string
     name: string
 }
 

@@ -1,21 +1,13 @@
-interface Props {
-    imgSrc: string
-    ico: string
-    name: string
-    subject: string
-    commentText: string
-    value: string
-    date: string
-}
+import type { ICommentItem } from "@/types/component";
 
-export const CommentItem: React.FC<Props> = ({
+export const CommentItem: React.FC<ICommentItem> = ({
     imgSrc = "",
     ico = "",
     name = "",
     subject = "",
     commentText = "",
     value = "",
-    date = "",
+    datetime = "",
 }) => {
   return (
     <div className="comment__item">
@@ -43,7 +35,7 @@ export const CommentItem: React.FC<Props> = ({
           </div>
         </div>
         <div className="date">
-          <span>{date}</span>
+          <span>{datetime}</span>
         </div>
       </div>
     </div>

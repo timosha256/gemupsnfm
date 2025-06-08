@@ -1,4 +1,4 @@
-
+import Link from "next/link"
 
 export const SideNav: React.FC = () => {
   return (
@@ -6,8 +6,8 @@ export const SideNav: React.FC = () => {
         <div className="head__block">
             <div className="logo__wrapper">
             <a href="/" title="main">
-                <img className="logo__element" src="@img/logo/logo_icon.svg" alt="name" />
-                <img className="logo__text" src="@img/logo/logo_text.svg" alt="name" />
+                <img className="logo__element" src="/img/logo/logo_icon.svg" alt="name" />
+                <img className="logo__text" src="/img/logo/logo_text.svg" alt="name" />
             </a>
             </div>
             <button className="menuFunction"><i className="ico-burger-nav"></i></button>
@@ -31,9 +31,9 @@ export const SideNav: React.FC = () => {
                 </button>
                 </li>
                 <li className="sidenav__element">
-                <a href="/proxy.html" title="name">
+                <Link href="/proxy" title="name">
                     <i className="ico-shield"></i>Proxy
-                </a>
+                </Link>
                 </li>
             </ul>
             </nav>

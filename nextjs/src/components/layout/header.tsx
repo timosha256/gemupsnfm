@@ -1,3 +1,4 @@
+import Link from "next/link";
 import LangSwitch from "../shared/header/lang-switch";
 import Burger from "../shared/header/burger";
 import Cart from "../shared/header/cart";
@@ -14,7 +15,7 @@ export const Header: React.FC<Props> = ({ isAuth }) => {
         <div className="header__wrapper">
           <div className="leftSide">
             <a href="#" title="name">
-              <img src="@img/logo/logo_icon.svg" alt="name" />
+              <img src="/img/logo/logo_icon.svg" alt="name" />
             </a>
           </div>
           <div className="rightSide">
@@ -41,10 +42,10 @@ export const Header: React.FC<Props> = ({ isAuth }) => {
                     </a>
                   </li>
                   <li className="userMenu__item">
-                    <a href="/purchases.html" title="">
+                    <Link href="/purchases" title="">
                       <i className="ico-cart-bag"></i>
                       My Purchases
-                    </a>
+                    </Link>
                   </li>
                   <li className="userMenu__item">
                     <a href="#" title="">
@@ -122,7 +123,7 @@ export const Header: React.FC<Props> = ({ isAuth }) => {
       <div className="header__wrapper">
         <div className="leftSide">
           <a href="#" title="name">
-            <img src="@img/logo/logo_icon.svg" alt="name" />
+            <img src="/img/logo/logo_icon.svg" alt="name" />
           </a>
         </div>
         <div className="rightSide">

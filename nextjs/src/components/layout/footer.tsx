@@ -1,6 +1,6 @@
 import Script from "next/script"
 
-export default function Footer() {
+export const Footer: React.FC = () =>  {
   return (
     <>
         <footer></footer>
