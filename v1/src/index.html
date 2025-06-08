@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('html/basic/head.html',{
+   "title":"",
+   "desc":"",
+   "keys":"",
+   "ogtype":"",
+   "ogurl":"",
+   "ogtitle":"",
+   "ogdescription":"",
+   "ogsitename":"",
+   "ogimage":"",
+})
+<body>
+
+   <div class="page__wrapper">
+      @@include('html/components/sideNavDesktop.html',{})
+      <div class="main__content">
+         <div id="auth-header-box">
+            @@include('html/basic/header-noauth.html', {})
+            @@include('html/basic/header-auth.html', {})
+        </div>
+         <main>
+            <h1>Content</h1>
+         </main>
+         @@include('html/basic/footer.html',{})
+      </div>
+   </div>
+</body>
+</html>

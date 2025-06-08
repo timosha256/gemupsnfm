@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('html/basic/head.html',{
+   "title":"",
+   "desc":"",
+   "keys":"",
+   "ogtype":"",
+   "ogurl":"",
+   "ogtitle":"",
+   "ogdescription":"",
+   "ogsitename":"",
+   "ogimage":"",
+})
+<body>
+
+   <div class="page__wrapper generate-page">
+      @@include('html/components/sideNavDesktop.html',{})
+      <div class="main__content">
+         <div id="auth-header-box">
+            @@include('html/basic/header-noauth.html', {})
+            @@include('html/basic/header-auth.html', {})
+        </div>
+         <main>
+            @@include('html/components/breadcrumbs.html', {
+               "name":"Generate proxy"
+            })
+            @@include('html/components/headers/page-header.html',{
+               "name":"Generate proxy"
+            })
+            <section id="tabData">
+              <div class="tabs container">
+                <div class="tabs__nav">
+                  <button class="tabs__button active" data-tab="Residential">Residential</button>
+                  <button class="tabs__button" data-tab="DataCenter">Data Center</button>
+                  <button class="tabs__button" data-tab="ISP">ISP</button>
+                </div>
+                <div class="tabs__content">
+                  <div class="tab active" id="Residential">
+                    
+                    <div class="innerContent__wrapper">
+                      <div class="mainContent">
+                        <div class="generate-page__settings-box generate-page__settings-box--top box">
+                          <div class="box__column">
+                            <h3 class="box__column-title">
+                              <span>Available proxy providers&nbsp;:</span>
+                              <img src="img/icons/hint.svg" alt="hint">
+                            </h3>
+                            <div class="box__btn-list">
+                              <button class="box__btn box__btn--active" type="button">
+                                <img class="box__btn-icon" src="img/flag/poland.svg" alt="Poland" data-title="Poland">
+                                <span class="box__btn-caption">Lola</span>
+                                <span class="box__btn-tag">#1234</span>
+                              </button>
+                              <button class="box__btn box__btn--active" type="button">
+                                <img class="box__btn-icon" src="img/icons/planet--green.svg" alt="Poland" data-title="Poland">
+                                <span class="box__btn-caption">Lola</span>
+                                <span class="box__btn-tag">#1234</span>
+                              </button>
+                              <button class="box__btn" type="button">
+                                <span class="box__btn-caption">Bob</span>
+                              </button>
+                              <button class="box__btn" type="button">
+                                <span class="box__btn-caption">Paul</span>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="box__column">
+                            <h3 class="box__column-title">
+                              <span>Protocol:&nbsp;</span>
+                              <img src="img/icons/hint.svg" alt="hint">
+                            </h3>
+                            <div class="box__btn-list">
+                              <button class="box__btn box__btn--active" type="button">
+                                <span class="box__btn-caption">HTTP(S)</span>
+                              </button>
+                              <button class="box__btn" type="button">
+                                <span class="box__btn-caption">SOCKS5</span>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="panel-box__row box__row">
+                            <div class="generate-page__count-panel generate-page__panel-box">
+                              <h3 class="box__column-title">
+                                <span>Count:&nbsp;</span>
+                                <img src="img/icons/hint.svg" alt="hint">
+                              </h3>
+                              <div class="generate-page__panel-box-row">
+                                <button id="minus" class="minus-btn" data-input-id="generate-proxy-count-input"></button>
+                                <input type="number" value="100" id="generate-proxy-count-input" class="generate-page__count-panel-input">
+                                <button id="plus" class="plus-btn" data-input-id="generate-proxy-count-input"></button>
+                              </div>
+                            </div>
+                            <div class="generate-page__format-panel generate-page__panel-box">
+                              <h3 class="box__column-title">
+                                <span>Format:&nbsp;</span>
+                                <img src="img/icons/hint.svg" alt="hint">
+                              </h3>
+                              <div id="generate-proxy-format-dropdown" class="generate-page__format-panel-dropdown dropdown dropdown--active">
+                                <button class="dropdown__toggle">
+                                  <span id="dropdown-value">ip:port:login:password</span>
+                                  <img src="img/icons/dropdown-arrow.svg" alt="">
+                                </button>
+                                <ul class="dropdown__menu">
+                                  <li class="dropdown__menu-item">ip:port:login:password</li>
+                                  <li class="dropdown__menu-item">ip:port:login:password</li>
+                                  <li class="dropdown__menu-item">ip:port:login:password</li>
+                                  <li class="dropdown__menu-item">ip:port:login:password</li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="generate-page__more-options-panel generate-page__panel-box">
+                              <span></span>
+                              <button id="show-more-options" class="box__btn box__btn--light">Show more options</button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="generate-page__settings-box generate-page__settings-box--bottom box">
+                          <div class="box__column">
+                            <h3 class="box__column-title">
+                              <span>Location:&nbsp;</span>
+                              <img src="img/icons/hint.svg" alt="hint">
+                            </h3>
+                            <div class="generate-page__location-panel box__row">
+                              <div class="generate-page__location-panel-btn-list box__btn-list">
+                                <button class="box__btn box__btn--active" type="button">Random</button>
+                                <button class="box__btn" type="button">Country</button>
+                              </div>
+                              <div class="generate-page__location-panel-dropdown-list dropdown-list dropdown-list--row">
+                                <div id="generate-proxy-country-dropdown" class="generate-page__location-panel-dropdown dropdown dropdown--disabled">
+                                  <button class="dropdown__toggle">
+                                    <span id="dropdown-value">Country</span>
+                                    <img src="img/icons/dropdown-arrow.svg" alt="">
+                                  </button>
+                                  <ul class="dropdown__menu">
+                                    <li class="dropdown__menu-item">Poland</li>
+                                    <li class="dropdown__menu-item">Poland</li>
+                                    <li class="dropdown__menu-item">Poland</li>
+                                    <li class="dropdown__menu-item">Poland</li>
+                                  </ul>
+                                </div>
+                                <div id="generate-proxy-state-dropdown" class="generate-page__location-panel-dropdown dropdown dropdown--disabled">
+                                  <button class="dropdown__toggle">
+                                    <span id="dropdown-value">State</span>
+                                    <img src="img/icons/dropdown-arrow.svg" alt="">
+                                  </button>
+                                  <ul class="dropdown__menu">
+                                    <li class="dropdown__menu-item">State</li>
+                                    <li class="dropdown__menu-item">State</li>
+                                    <li class="dropdown__menu-item">State</li>
+                                    <li class="dropdown__menu-item">State</li>
+                                  </ul>
+                                </div>
+                                <div id="generate-proxy-city-dropdown" class="generate-page__location-panel-dropdown dropdown dropdown--disabled">
+                                  <button class="dropdown__toggle">
+                                    <span id="dropdown-value">City</span>
+                                    <img src="img/icons/dropdown-arrow.svg" alt="">
+                                  </button>
+                                  <ul class="dropdown__menu">
+                                    <li class="dropdown__menu-item">City</li>
+                                    <li class="dropdown__menu-item">City</li>
+                                    <li class="dropdown__menu-item">City</li>
+                                    <li class="dropdown__menu-item">City</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="box__row">
+                            <div class="generate-page__session-panel generate-page__panel-box">
+                              <h3 class="box__column-title">
+                                <span>Session type:&nbsp;</span>
+                                <img src="img/icons/hint.svg" alt="hint">
+                              </h3>
+                              <div class="generate-page__session-panel-btn-list box__btn-list">
+                                <button class="box__btn" type="button">Dynamic</button>
+                                <button class="box__btn box__btn--active" type="button">Static</button>
+                              </div>
+                            </div>
+                            <div class="generate-page__ttl-panel generate-page__panel-box">
+                              <h3 class="box__column-title">
+                                <span>TTL:&nbsp;</span>
+                                <img src="img/icons/hint.svg" alt="hint">
+                              </h3>
+                              <div id="generate-proxy-ttl-dropdown" class="generate-page__ttl-panel-dropdown dropdown">
+                                <button class="dropdown__toggle">
+                                  <span id="dropdown-value">60 min</span>
+                                  <img src="img/icons/dropdown-arrow.svg" alt="">
+                                </button>
+                                <ul class="dropdown__menu">
+                                  <li class="dropdown__menu-item" data-value="3600">60 min</li>
+                                  <li class="dropdown__menu-item" data-value="3600">60 min</li>
+                                  <li class="dropdown__menu-item" data-value="3600">60 min</li>
+                                  <li class="dropdown__menu-item" data-value="3600">60 min</li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="generate-page__panel-box">
+                              <span></span>
+                              <button id="save-and-close" class="box__btn bg--green color--black hover hover--opacity">Save and close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sideData">
+                        <div class="side__content">
+                          <div class="Canv__wrapper" id="chartContainer">
+                            <canvas id="chartTraffic"
+                              data-max="1000"
+                              data-value="387"
+                              data-line1="Traffic used"
+                              data-total="/ 10 gb">
+                            </canvas>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="generated__area">
+                      <div class="top__head">
+                        <div class="title">100 proxy generated</div>
+                        <button type="button" class="genCopy">Copy<i class="ico-copy"></i></button>
+                      </div>
+                      <div class="generated__list">
+                        <div class="list__item">
+                          <span class="number">1</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                        <div class="list__item">
+                          <span class="number">2</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                        <div class="list__item">
+                          <span class="number">3</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                        <div class="list__item">
+                          <span class="number">4</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                        <div class="list__item">
+                          <span class="number">5</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                        <div class="list__item">
+                          <span class="number">6</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                        <div class="list__item">
+                          <span class="number">7</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                        <div class="list__item">
+                          <span class="number">8</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                        <div class="list__item">
+                          <span class="number">9</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                        <div class="list__item">
+                          <span class="number">10</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                        <div class="list__item">
+                          <span class="number">11</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                        <div class="list__item">
+                          <span class="number">12</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                        <div class="list__item">
+                          <span class="number">13</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                        <div class="list__item">
+                          <span class="number">14</span>
+                          <span class="value">http://51.159.152.12:10192:2De3DrvTHSVqAfDAwVV_-session-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221-abjhm4uasqUa-lifetime-60:52eeff8a-4df2-4c1a-a1cc-12d3b7772221</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab" id="DataCenter">
+                  </div>
+                </div>
+              </div>
+              <div>
+            </section>
+         </main>
+
+
+
+         @@include('html/basic/footer.html',{})
+      </div>
+   </div>
+</body>
+</html>
