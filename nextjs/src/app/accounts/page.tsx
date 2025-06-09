@@ -11,6 +11,7 @@ import { SideNav } from "@/components/side-nav";
 import { marketplaceComments } from "@/data";
 import type { ICommentItem } from "@/types/component";
 import { Footer } from "@/components/layout/footer";
+import { Scripts } from "@/components/shared/scripts";
 
 // export const metadata: Metadata = {
 //   title: "GEMUPS",
@@ -368,6 +369,7 @@ export default function AccountsPage() {
           </div>
         </main>
         <Footer />
+        <Scripts />
       </div>
     </div>
   );

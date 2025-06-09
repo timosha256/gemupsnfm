@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
 import type { Metadata } from "next";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { Scripts } from "@/components/shared/scripts";
 import { SideNav } from "@/components/side-nav";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { PageHeader } from "@/components/headers/page-header";
@@ -27,7 +28,7 @@ import type { IPurchase } from "@/types/data";
 
 export default function PurchasesPage() {
   const [purchaseList, setPurchaseList] = useState<IPurchase[]>([]);
-  
+
   useEffect(() => {
     setPurchaseList(purchases);
   }, []);
@@ -36,58 +37,76 @@ export default function PurchasesPage() {
     <div className="page__wrapper">
       <SideNav />
       <div className="main__content">
-         <div id="auth-header-box">
-            <Header />
+        <div id="auth-header-box">
+          <Header />
         </div>
-         <main>
-            <Breadcrumbs name="My purchases" />
-            <PageHeader name="My purchases" />
-            <section id="tabData" className="contentFilter container">
-              <div className="tabs">
-                <div className="tabs__nav">
-                  <button className="tabs__button active" data-tab="All">All</button>
-                  <button className="tabs__button" data-tab="Proxy">Proxy</button>
-                  <button className="tabs__button" data-tab="Accounts">Accounts</button>
-                  <button className="tabs__button" data-tab="Services">Services</button>
+        <main>
+          <Breadcrumbs name="My purchases" />
+          <PageHeader name="My purchases" />
+          <section id="tabData" className="contentFilter container">
+            <div className="tabs">
+              <div className="tabs__nav">
+                <button className="tabs__button active" data-tab="All">
+                  All
+                </button>
+                <button className="tabs__button" data-tab="Proxy">
+                  Proxy
+                </button>
+                <button className="tabs__button" data-tab="Accounts">
+                  Accounts
+                </button>
+                <button className="tabs__button" data-tab="Services">
+                  Services
+                </button>
+              </div>
+              <div className="tabs__content">
+                <div className="table__head">
+                  <div className="head__title">Name</div>
+                  <div className="head__title">Amount</div>
+                  <div className="head__title">Dates</div>
+                  <div className="head__title">Action</div>
                 </div>
-                <div className="tabs__content">
-                  <div className="table__head">
-                    <div className="head__title">Name</div>
-                    <div className="head__title">Amount</div>
-                    <div className="head__title">Dates</div>
-                    <div className="head__title">Action</div>
-                  </div>
 
-                  <div className="table__content">
-
-                    <div className="element__line activated" data-category="All Proxy">
-                      <div className="content__data">
-                        <span className="name">Аккаунты Telegram RU 1шт tdata для Telegram Portable exe - Ручная, Отлежка: 10 дн+, Пол: mix. AccsFarm</span>
-                        <span className="value green">10 000 / 18 000</span>
-                        <span className="value green">12.05.2024 / 30 days</span>
-                        <div className="actions">
-                          <button type="button"><i className="ico-cart"></i></button>
-                          <a href="#" title="name"><i className="ico-eye"></i></a>
-                        </div>
-                      </div>
-                      <div className="mainData">
-                        <span className="service">Proxy [Residential]</span>
-                        <span className="shop">NVS Shop</span>
+                <div className="table__content">
+                  <div
+                    className="element__line activated"
+                    data-category="All Proxy"
+                  >
+                    <div className="content__data">
+                      <span className="name">
+                        Аккаунты Telegram RU 1шт tdata для Telegram Portable exe
+                        - Ручная, Отлежка: 10 дн+, Пол: mix. AccsFarm
+                      </span>
+                      <span className="value green">10 000 / 18 000</span>
+                      <span className="value green">12.05.2024 / 30 days</span>
+                      <div className="actions">
+                        <button type="button">
+                          <i className="ico-cart"></i>
+                        </button>
+                        <a href="#" title="name">
+                          <i className="ico-eye"></i>
+                        </a>
                       </div>
                     </div>
-                    {purchaseList.map(({ active, name, category, shop }) => {
-                      // return active
-                      //   ? <Line active />
-                      //   : <Line />
-                      return <div></div>
-                    })}
+                    <div className="mainData">
+                      <span className="service">Proxy [Residential]</span>
+                      <span className="shop">NVS Shop</span>
+                    </div>
                   </div>
+                  {purchaseList.map(({ active, name, category, shop }) => {
+                    // return active
+                    //   ? <Line active />
+                    //   : <Line />
+                    return <div></div>;
+                  })}
                 </div>
               </div>
-            </section>
-         </main>
-         <Footer />
+            </div>
+          </section>
+        </main>
+        <Footer />
+        <Scripts />
       </div>
-   </div>
-  )
+    </div>
+  );
 }

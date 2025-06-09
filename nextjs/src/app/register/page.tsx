@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { Scripts } from "@/components/shared/scripts";
 import { SideNav } from "@/components/side-nav";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { InputPlacetop } from "@/components/shared/forms/input-placetop";
@@ -28,7 +29,7 @@ interface IRegisterFormData {
   username: string
   email: string
   password: string
-  refferalCode?: string
+  referralCode?: string
 }
 
 export default function RegisterPage() {
@@ -40,7 +41,7 @@ export default function RegisterPage() {
     username: "",
     email: "",
     password: "",
-    refferalCode: ""
+    referralCode: ""
   });
 
   useEffect(() => {
@@ -55,8 +56,8 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const { username, email, password, refferalCode } = formData;
-    await register(username, email, password, refferalCode);
+    const { username, email, password, referralCode } = formData;
+    await register(username, email, password, referralCode);
     if (isError) {
       const prefix = error?.message ? `${error.message} ` : "";
       alert(`${prefix}\nPlease try again`);
@@ -68,7 +69,7 @@ export default function RegisterPage() {
         username: "",
         email: "",
         password: "",
-        refferalCode: ""
+        referralCode: ""
       });
       router.push("/login");
     }
@@ -127,13 +128,13 @@ export default function RegisterPage() {
                     required
                   />
                   <InputPlacetop
-                    id="refferal"
+                    id="referral"
                     type="text"
-                    name="refferal"
-                    placeholder="Refferal Code (Optional)"
-                    label="Refferal Code (Optional)"
-                    value={formData.refferalCode}
-                    onChange={(e) => setFormData({ ...formData, refferalCode: e.target.value })}
+                    name="referral"
+                    placeholder="Referral Code (Optional)"
+                    label="Referral Code (Optional)"
+                    value={formData.referralCode}
+                    onChange={(e) => setFormData({ ...formData, referralCode: e.target.value })}
                   />
                 </div>
 
@@ -150,6 +151,7 @@ export default function RegisterPage() {
           </div>
         </main>
         <Footer />
+        <Scripts />
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ interface IAuthStore {
     username: string,
     email: string,
     password: string,
-    refferalCode?: string
+    referralCode?: string
   ) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -37,7 +37,7 @@ export const useAuthStore = create<IAuthStore>()(
       setLoading: (isLoading) => set({ isLoading }),
       setError: (isError, error) => set({ isError, error }),
       setUser: (user) => set({ user }),
-      register: async (username, email, password, refferalCode) => {
+      register: async (username, email, password, referralCode) => {
         set({ isLoading: true, isError: false, error: null });
 
         try {

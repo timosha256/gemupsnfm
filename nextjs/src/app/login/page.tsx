@@ -9,6 +9,7 @@ import { SideNav } from "@/components/side-nav";
 import { InputPlacetop } from "@/components/shared/forms/input-placetop";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { Footer } from "@/components/layout/footer";
+import { Scripts } from "@/components/shared/scripts";
 import { useAuthStore } from "@/store/auth";
 
 // export const metadata: Metadata = {
@@ -118,7 +119,8 @@ export default function LoginPage() {
             </div>
           </div>
         </main>
-        <Footer />  
+        <Footer />
+        <Scripts />  
       </div>
     </div>
   );

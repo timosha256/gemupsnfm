@@ -1,3 +1,5 @@
+import { Textarea } from "@/components/ui/textarea";
+
 export const AddReview: React.FC = () => {
   return (
     <div className="hystmodal" id="addReview" aria-hidden="true">
@@ -28,11 +30,7 @@ export const AddReview: React.FC = () => {
                     <input type="hidden" name="rating" value="0" />
                   </div>
                 </div>
-                <textarea
-                  name=""
-                  id=""
-                  placeholder="Enter the comment"
-                ></textarea>
+                <Textarea name="" id="" placeholder="Enter the comment" />
               </div>
               <div className="form__action">
                 <button type="submit" disabled>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { Scripts } from "@/components/shared/scripts";
 import { SideNav } from "@/components/side-nav";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { PageHeader } from "@/components/headers/page-header";
@@ -730,6 +731,7 @@ export default function ProxyPage() {
           </section>
         </main>
         <Footer />
+        <Scripts />
       </div>
     </div>
   );

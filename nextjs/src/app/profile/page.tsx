@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { SideNav } from "@/components/side-nav";
 import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { Scripts } from "@/components/shared/scripts";
 import { userData, ISellerProducts } from "@/data";
 import type { ISellerProduct } from "@/types/data";
 
@@ -739,6 +741,8 @@ export default function ProfilePage() {
             </div>
           </div>
         </main>
+        <Footer />
+        <Scripts />
       </div>
     </div>
   );

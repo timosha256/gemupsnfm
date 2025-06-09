@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link";
+import { v4 as uuidv4 } from "uuid";
 import LangSwitch from "../shared/header/lang-switch";
 import Burger from "../shared/header/burger";
 import Cart from "../shared/header/cart";
@@ -12,6 +13,14 @@ import { useAuthStore } from "@/store/auth";
 export const Header: React.FC = () => {
   const { isAuth } = useAuth();
   const { user, logout } = useAuthStore((state) => state);
+  const menuItemList = [
+    { id: uuidv4(), ico: "ico-user", label: "My Profile", href: "/profile" },
+    { id: uuidv4(), ico: "ico-cart-bag", label: "My Purchases", href: "/purchases" },
+    { id: uuidv4(), ico: "ico-arrow-menu-left", label: "Transactions", href: "/transactions" },
+    { id: uuidv4(), ico: "ico-tag", label: "Seller", href: "/seller" },
+    { id: uuidv4(), ico: "ico-users", label: "Referral", href: "/referral" },
+    { id: uuidv4(), ico: "ico-logout", label: "Logout", href: "/" }
+  ];
 
   if (isAuth) {
     return (
@@ -39,42 +48,14 @@ export const Header: React.FC = () => {
               <i className="ico-arrow"></i>
               <div className="userMenu">
                 <ul className="userMenu__items">
-                  <li className="userMenu__item">
-                    <a href="#" title="">
-                      <i className="ico-user"></i>
-                      My Profile
-                    </a>
-                  </li>
-                  <li className="userMenu__item">
-                    <Link href="/purchases" title="">
-                      <i className="ico-cart-bag"></i>
-                      My Purchases
-                    </Link>
-                  </li>
-                  <li className="userMenu__item">
-                    <a href="#" title="">
-                      <i className="ico-arrow-menu-left"></i>
-                      Transactions
-                    </a>
-                  </li>
-                  <li className="userMenu__item">
-                    <a href="#" title="">
-                      <i className="ico-tag"></i>
-                      Seller
-                    </a>
-                  </li>
-                  <li className="userMenu__item">
-                    <a href="#" title="">
-                      <i className="ico-users"></i>
-                      Referral
-                    </a>
-                  </li>
-                  <li className="userMenu__item logout">
-                    <Link href="/" onClick={logout}>
-                      <i className="ico-logout"></i>
-                      Logout
-                    </Link>
-                  </li>
+                  {menuItemList.map(({ id, ico, label, href }) => (
+                    <li className="userMenu__item" key={id}>
+                      <Link href={href} title="">
+                        <i className={ico}></i>
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>

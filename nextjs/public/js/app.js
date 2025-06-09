@@ -23,19 +23,27 @@ import * as modals from "./modules/modals.js";
 
 // initAuth();
 
-setupProductFilters();
-enableSubmitWhenAllRequiredFieldsFilled();
-setupContentToggle();
-setupCartButtons();
-setupTariffSelect();
-initTabs();
-setupFilterTabs();
-toggleDescription();
-setupCopyLink();
-initRatingStars();
-autoResizeTextareas();
-initTrafficCharts();
-setupGenCopy();
-initCart();
-initDropdown();
-plusMinus();
+function handleError(func, logError = false) {
+    try {
+        func();
+    } catch (e) {
+        logError && console.log(e);
+    }
+}
+
+handleError(setupProductFilters);
+handleError(enableSubmitWhenAllRequiredFieldsFilled);
+handleError(setupContentToggle);
+handleError(setupCartButtons);
+handleError(setupTariffSelect);
+handleError(initTabs);
+handleError(setupFilterTabs);
+handleError(toggleDescription);
+handleError(setupCopyLink);
+handleError(initRatingStars);
+handleError(autoResizeTextareas);
+handleError(initTrafficCharts);
+handleError(setupGenCopy);
+handleError(initCart);
+handleError(initDropdown);
+handleError(plusMinus);

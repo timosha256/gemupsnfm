@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { Scripts } from "@/components/shared/scripts";
 import { SideNav } from "@/components/side-nav";
 import styles from "./page.module.scss";
 
@@ -29,6 +30,7 @@ export default function Home() {
           <h1>Content</h1>
         </main>
         <Footer />
+        <Scripts />
       </div>
     </div>
   );

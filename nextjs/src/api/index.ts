@@ -8,6 +8,15 @@ const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_SERVER_URL!
 });
 
+api.interceptors.request.use((config) => {
+    const accessToken = Cookies.get("access_token");
+    if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+
+    return config;
+});
+
 const refreshAuthLogic = (failedRequest: any) => 
     api.post("/auth/refresh").then(tokenRefreshResponse => {
         const data = camelcaseKeys(tokenRefreshResponse.data) as { accessToken: string };
