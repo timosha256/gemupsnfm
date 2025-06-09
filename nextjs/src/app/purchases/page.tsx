@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SideNav } from "@/components/side-nav";
-import { userData } from "@/data";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { PageHeader } from "@/components/headers/page-header";
 import { purchases } from "@/data";
@@ -38,7 +37,7 @@ export default function PurchasesPage() {
       <SideNav />
       <div className="main__content">
          <div id="auth-header-box">
-            <Header isAuth={userData.isAuth} />
+            <Header />
         </div>
          <main>
             <Breadcrumbs name="My purchases" />

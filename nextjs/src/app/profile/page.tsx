@@ -33,7 +33,7 @@ export default function ProfilePage() {
       <SideNav />
       <div className="main__content">
         <div id="auth-header-box">
-          <Header isAuth={userData.isAuth} />
+          <Header />
         </div>
         <main>
           <section className="verify_acc">

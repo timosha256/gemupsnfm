@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface Props {
     initial?: string
     name: string
@@ -16,12 +18,12 @@ export const Breadcrumbs: React.FC<Props> = ({
             itemScope
             itemType="http://schema.org/ListItem"
           >
-            <a itemProp="item" href="#">
+            <Link itemProp="item" href="/">
               <span className="name" itemProp="name">
                 {initial}
               </span>
               <i className="ico-arrow"></i>
-            </a>
+            </Link>
             <meta itemProp="position" content="1" />
           </li>
           <li

@@ -8,7 +8,7 @@ import { Header } from "@/components/layout/header";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { CommentItem } from "@/components/shared/comment-item";
 import { SideNav } from "@/components/side-nav";
-import { userData, marketplaceComments } from "@/data";
+import { marketplaceComments } from "@/data";
 import type { ICommentItem } from "@/types/component";
 import { Footer } from "@/components/layout/footer";
 
@@ -37,7 +37,7 @@ export default function AccountsPage() {
       <SideNav />
       <div className="main__content">
         <div id="auth-header-box">
-          <Header isAuth={userData.isAuth} />
+          <Header />
         </div>
         <main>
           <Breadcrumbs name="Accounts" />

@@ -21,7 +21,7 @@ import { plusMinus } from "./modules/plusMinus.js";
 import { initAuth } from "./modules/newAuth.js";
 import * as modals from "./modules/modals.js";
 
-initAuth();
+// initAuth();
 
 setupProductFilters();
 enableSubmitWhenAllRequiredFieldsFilled();

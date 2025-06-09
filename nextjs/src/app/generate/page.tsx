@@ -7,7 +7,7 @@ import { SideNav } from "@/components/side-nav";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { PageHeader } from "@/components/headers/page-header";
 import { Footer } from "@/components/layout/footer";
-import { userData, generatedProxyList } from "@/data";
+import { generatedProxyList } from "@/data";
 
 // export const metadata: Metadata = {
 //   title: "GEMUPS",
@@ -34,7 +34,7 @@ export default function GeneratePage() {
       <SideNav />
       <div className="main__content">
         <div id="auth-header-box">
-          <Header isAuth={userData.isAuth} />
+          <Header />
         </div>
         <main>
           <Breadcrumbs name="Generate proxy" />

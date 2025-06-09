@@ -1,3 +1,18 @@
+export interface IUser {
+  id: number
+  email: string
+  username: string
+  firstName: string
+  lastName: string
+  isActive: boolean
+  isVerified: boolean
+  isGuest: boolean
+  // isAdmin: boolean
+  // role: string
+  balance: string
+  guestSessionId: string
+}
+
 export interface ISellerProduct {
   tags: string[];
   imgSrc: string;

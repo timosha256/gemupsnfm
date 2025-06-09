@@ -7,13 +7,14 @@ interface Props {
   required?: boolean;
 }
 
-export const InputPlacetop: React.FC<Props> = ({
+export const InputPlacetop: React.FC<Props & React.InputHTMLAttributes<HTMLInputElement>> = ({
   id = "",
   type = "",
   name = "",
   placeholder = "",
   label = "",
   required = false,
+  ...props
 }) => {
   return (
     <div className="form-control form-control--fullwidth">
@@ -25,6 +26,7 @@ export const InputPlacetop: React.FC<Props> = ({
           name={name}
           placeholder={placeholder}
           required={required}
+          {...props}
         />
         <label htmlFor={id} className="text-field__label">
           {label}

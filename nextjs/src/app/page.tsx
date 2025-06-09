@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SideNav } from "@/components/side-nav";
-import { userData } from "@/data";
 import styles from "./page.module.scss";
 
 export const metadata: Metadata = {
@@ -24,7 +23,7 @@ export default function Home() {
       <SideNav />
       <div className="main__content">
         <div id="auth-header-box">
-          <Header isAuth={userData.isAuth} />
+          <Header />
         </div>
         <main>
           <h1>Content</h1>

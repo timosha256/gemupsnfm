@@ -1,14 +1,18 @@
+"use client"
+
 import Link from "next/link";
 import LangSwitch from "../shared/header/lang-switch";
 import Burger from "../shared/header/burger";
 import Cart from "../shared/header/cart";
 import AuthActions from "../shared/header/auth-actions";
+import { useAuth } from "@/hooks/auth";
+import { useAuthStore } from "@/store/auth";
 
-interface Props {
-  isAuth: boolean;
-}
 
-export const Header: React.FC<Props> = ({ isAuth }) => {
+export const Header: React.FC = () => {
+  const { isAuth } = useAuth();
+  const { user, logout } = useAuthStore((state) => state);
+
   if (isAuth) {
     return (
       <header className="auth">
@@ -30,7 +34,7 @@ export const Header: React.FC<Props> = ({ isAuth }) => {
             <div className="user__wrapper">
               <div className="user__name">
                 <i className="ico-user"></i>
-                <span>User name</span>
+                <span>{user?.username}</span>
               </div>
               <i className="ico-arrow"></i>
               <div className="userMenu">
@@ -66,10 +70,10 @@ export const Header: React.FC<Props> = ({ isAuth }) => {
                     </a>
                   </li>
                   <li className="userMenu__item logout">
-                    <a href="#" title="">
+                    <Link href="/" onClick={logout}>
                       <i className="ico-logout"></i>
                       Logout
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

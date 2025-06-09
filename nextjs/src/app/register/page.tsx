@@ -1,32 +1,85 @@
+"use client"
+
 import type { Metadata } from "next";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SideNav } from "@/components/side-nav";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { InputPlacetop } from "@/components/shared/forms/input-placetop";
-import { userData } from "@/data";
+import { useAuthStore } from "@/store/auth";
 
-export const metadata: Metadata = {
-  title: "GEMUPS",
-  description: "",
-  keywords: "",
-  openGraph: {
-    type: "website",
-    url: "",
-    description: "",
-    siteName: "",
-    images: "",
-  },
-};
+// export const metadata: Metadata = {
+//   title: "GEMUPS",
+//   description: "",
+//   keywords: "",
+//   openGraph: {
+//     type: "website",
+//     url: "",
+//     description: "",
+//     siteName: "",
+//     images: "",
+//   },
+// };
+
+interface IRegisterFormData {
+  username: string
+  email: string
+  password: string
+  refferalCode?: string
+}
 
 export default function RegisterPage() {
+  const router = useRouter();
+
+  const { isLoading, isError, error, user, register } = useAuthStore((state) => state);
+  const [submitAccess, setSubmitAccess] = useState<boolean>(false);
+  const [formData, setFormData] = useState<IRegisterFormData>({
+    username: "",
+    email: "",
+    password: "",
+    refferalCode: ""
+  });
+
+  useEffect(() => {
+    const { username, email, password } = formData;
+    if (username.length > 0 && email.length > 0 && password.length > 0) {
+      setSubmitAccess(true);
+    } else {
+      setSubmitAccess(false);
+    }
+  }, [formData]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const { username, email, password, refferalCode } = formData;
+    await register(username, email, password, refferalCode);
+    if (isError) {
+      const prefix = error?.message ? `${error.message} ` : "";
+      alert(`${prefix}\nPlease try again`);
+    }
+
+    if (!isLoading && !isError) {
+      alert("Registration successfully completed");
+      setFormData({
+        username: "",
+        email: "",
+        password: "",
+        refferalCode: ""
+      });
+      router.push("/login");
+    }
+  }
+
   return (
     <div className="page__wrapper">
       <SideNav />
       <div className="main__content">
         <div id="auth-header-box">
-          <Header isAuth={userData.isAuth} />
+          <Header />
         </div>
         <main>
           <Breadcrumbs name="Register" />
@@ -40,6 +93,7 @@ export default function RegisterPage() {
                 className="formBody form"
                 id="auth"
                 data-form-type="register"
+                onSubmit={handleSubmit}
               >
                 <div className="form__fields">
                   <InputPlacetop
@@ -48,6 +102,8 @@ export default function RegisterPage() {
                     name="username"
                     placeholder="Username"
                     label="Username"
+                    value={formData.username}
+                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                     required
                   />
                   <InputPlacetop
@@ -56,6 +112,8 @@ export default function RegisterPage() {
                     name="email"
                     placeholder="Email"
                     label="Email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
                   />
                   <InputPlacetop
@@ -64,6 +122,8 @@ export default function RegisterPage() {
                     name="password"
                     placeholder="Password"
                     label="Password"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     required
                   />
                   <InputPlacetop
@@ -72,11 +132,13 @@ export default function RegisterPage() {
                     name="refferal"
                     placeholder="Refferal Code (Optional)"
                     label="Refferal Code (Optional)"
+                    value={formData.refferalCode}
+                    onChange={(e) => setFormData({ ...formData, refferalCode: e.target.value })}
                   />
                 </div>
 
                 <div className="form__action">
-                  <button type="submit" disabled>
+                  <button type="submit" disabled={isLoading}>
                     Register
                   </button>
                   <div className="sub__actions">
