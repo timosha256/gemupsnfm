@@ -5,19 +5,19 @@ import { v4 as uuidv4 } from "uuid";
 import { useCartStore } from "@/store/cart";
 import { InputPlacetop } from "../forms/input-placetop";
 import { CURRENCY } from "@/constants";
+import { usePurchaseStore } from "@/store/purchase";
+import { useProductStore } from "@/store/product";
+import { IProxyProduct, ISellerProduct } from "@/types/data";
 
 interface Props {}
 
 export const CartModal: React.FC<Props> = () => {
   const [totalPrice, setTotalPrice] = useState<string | number>(0);
   const [currency, setCurrency] = useState<string>("");
-  const { isOpen, isValid, isLoading, isError, data, setIsOpen, getData, updateItem, deleteItem } = useCartStore((state) => state);
+  const { isOpen, isValid, isLoading, isError, data, setIsOpen, setData, getData, updateItem, deleteItem } = useCartStore((state) => state);
+  const { productList, setProductList, deleteProductList } = useProductStore((state) => state);
+  const { purchaseList, setPurchaseList, updatePurchaseList } = usePurchaseStore((state) => state);
 
-  useEffect(() => {
-    // if (!data) {
-    //   getData();
-    // }
-  }, []);
 
   useEffect(() => {
     if (data) {
@@ -33,6 +33,10 @@ export const CartModal: React.FC<Props> = () => {
     generationParams: string,
     operator: "+" | "-"
   ) => {
+    if (currentQuantity - 1 < 0 && operator === "-") {
+      return;
+    }
+
     switch (operator) {
       case "+":
         await updateItem(itemId, currentQuantity + 1, generationParams);
@@ -43,6 +47,27 @@ export const CartModal: React.FC<Props> = () => {
       default:
         break;
     }
+  };
+
+  const handleOrder = async () => {
+    if (data?.items && data?.items.length > 0) {
+      const proxyProductList = data.items.map((item) => item.proxyProduct);
+
+      deleteProductList(proxyProductList as Array<ISellerProduct & IProxyProduct>);
+      updatePurchaseList(proxyProductList as Array<ISellerProduct & IProxyProduct>);
+      setData(null);
+    }
+  };
+  
+  const calculateTotalPrice = () => {
+    let totalPrice = 0;
+    if (data?.items && data?.items.length > 0) {
+      data.items.forEach(
+        (item) => (totalPrice += +item.proxyProduct.pricePerProxy * item.quantity)
+      );
+    }
+
+    return totalPrice;
   };
 
   return (
@@ -149,10 +174,10 @@ export const CartModal: React.FC<Props> = () => {
                   <span className="label">For Payment</span>
                   <div className="price__data">
                     <span className="currency">{currency}</span>
-                    <span className="value">{totalPrice}</span>
+                    <span className="value">{calculateTotalPrice().toFixed(2)}</span>
                   </div>
                 </div>
-                <button className="make__order">Place an order</button>
+                <button className="make__order" onClick={handleOrder}>Place an order</button>
               </div>
             </div>
           </div>

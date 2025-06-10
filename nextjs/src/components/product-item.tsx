@@ -6,7 +6,7 @@ import { IProxyProduct, ISellerProduct } from "@/types/data";
 import { useCartStore } from "@/store/cart";
 
 
-type Props = IProxyProduct & ISellerProduct;
+type Props = ISellerProduct & IProxyProduct;
 
 
 // id: uuidv4(),

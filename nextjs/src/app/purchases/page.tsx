@@ -11,6 +11,8 @@ import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { PageHeader } from "@/components/headers/page-header";
 import { purchases } from "@/data";
 import { Line } from "@/components/tables/line";
+import { usePurchaseStore } from "@/store/purchase";
+import { calculateDateByDays } from "@/utils";
 import type { IPurchase } from "@/types/data";
 
 // export const metadata: Metadata = {
@@ -26,12 +28,34 @@ import type { IPurchase } from "@/types/data";
 //   },
 // };
 
-export default function PurchasesPage() {
-  const [purchaseList, setPurchaseList] = useState<IPurchase[]>([]);
+interface ITabButton {
+  isActive: boolean;
+  target: string;
+  label: string;
+}
 
-  useEffect(() => {
-    setPurchaseList(purchases);
-  }, []);
+export default function PurchasesPage() {
+  // const [purchaseList, setPurchaseList] = useState<IPurchase[]>([]);
+  const { purchaseList, setPurchaseList } = usePurchaseStore((state) => state);
+  const [tabsButtonList, setTabsButtonList] = useState<ITabButton[]>([
+    { isActive: true, target: "All", label: "All" },
+    { isActive: false, target: "Proxy", label: "Proxy" },
+    { isActive: false, target: "Accounts", label: "Accounts" },
+    { isActive: false, target: "Services", label: "Services" },
+  ]);
+
+  // useEffect(() => {
+  //   setPurchaseList(purchases);
+  // }, []);
+
+  const handleTabButtonClick = (target: string) => {
+    setTabsButtonList(
+      tabsButtonList.map((item) => ({
+        ...item,
+        isActive: item.target === target
+      }))
+    )
+  };
 
   return (
     <div className="page__wrapper">
@@ -46,18 +70,16 @@ export default function PurchasesPage() {
           <section id="tabData" className="contentFilter container">
             <div className="tabs">
               <div className="tabs__nav">
-                <button className="tabs__button active" data-tab="All">
-                  All
-                </button>
-                <button className="tabs__button" data-tab="Proxy">
-                  Proxy
-                </button>
-                <button className="tabs__button" data-tab="Accounts">
-                  Accounts
-                </button>
-                <button className="tabs__button" data-tab="Services">
-                  Services
-                </button>
+                {tabsButtonList.map(({ isActive, target, label }) => (
+                  <button
+                    key={uuidv4()}
+                    className={`tabs__button ${isActive ? "active" : ""}`}
+                    data-tab={target}
+                    onClick={() => handleTabButtonClick(target)}
+                  >
+                    {label}
+                  </button>
+                ))}
               </div>
               <div className="tabs__content">
                 <div className="table__head">
@@ -68,37 +90,50 @@ export default function PurchasesPage() {
                 </div>
 
                 <div className="table__content">
-                  <div
-                    className="element__line activated"
-                    data-category="All Proxy"
-                  >
-                    <div className="content__data">
-                      <span className="name">
-                        Аккаунты Telegram RU 1шт tdata для Telegram Portable exe
-                        - Ручная, Отлежка: 10 дн+, Пол: mix. AccsFarm
-                      </span>
-                      <span className="value green">10 000 / 18 000</span>
-                      <span className="value green">12.05.2024 / 30 days</span>
-                      <div className="actions">
-                        <button type="button">
-                          <i className="ico-cart"></i>
-                        </button>
-                        <a href="#" title="name">
-                          <i className="ico-eye"></i>
-                        </a>
+                  {purchaseList.map(
+                    ({
+                      id,
+                      name,
+                      minQuantity,
+                      maxQuantity,
+                      durationDays,
+                      proxyCategory,
+                    }) => (
+                      <div
+                        key={id}
+                        className="element__line activated"
+                        data-category="All Proxy"
+                      >
+                        <div className="content__data">
+                          <span className="name">{name}</span>
+                          <span className="value green">
+                            {minQuantity} / {maxQuantity}
+                          </span>
+                          <span className="value green">
+                            {calculateDateByDays(Math.abs(30 - durationDays), "-")} / {durationDays}
+                          </span>
+                          <div className="actions">
+                            <button type="button">
+                              <i className="ico-cart"></i>
+                            </button>
+                            <a href="#" title="name">
+                              <i className="ico-eye"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div className="mainData">
+                          <span className="service">{proxyCategory}</span>
+                          <span className="shop">NVS Shop</span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="mainData">
-                      <span className="service">Proxy [Residential]</span>
-                      <span className="shop">NVS Shop</span>
-                    </div>
-                  </div>
-                  {purchaseList.map(({ active, name, category, shop }) => {
+                    )
+                  )}
+                  {/* {purchaseList.map(({ active, name, category, shop }) => {
                     // return active
                     //   ? <Line active />
                     //   : <Line />
                     return <div></div>;
-                  })}
+                  })} */}
                 </div>
               </div>
             </div>

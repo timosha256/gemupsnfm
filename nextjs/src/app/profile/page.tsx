@@ -14,6 +14,7 @@ import { useAuthStore } from "@/store/auth";
 import type { IProxyProduct, ISellerProduct } from "@/types/data";
 import { useUserStore } from "@/store/user";
 import { UnverifiedBox } from "@/components/shared/unverified-box";
+import { useProductStore } from "@/store/product";
 
 // export const metadata: Metadata = {
 //   title: "GEMUPS",
@@ -29,14 +30,12 @@ import { UnverifiedBox } from "@/components/shared/unverified-box";
 // };
 
 export default function ProfilePage() {
-  const [productList, setProductList] = useState<Array<IProxyProduct & ISellerProduct>>([]);
   const { user } = useAuthStore((state) => state);
   const { user: userNew, getUser } = useUserStore((state) => state);
-
+  const { productList, getProductList } = useProductStore((state) => state);
+  
   useEffect(() => {
-    getUser();
-    axios.get("http://127.0.0.1:3000/api/proxy")
-      .then((res) => setProductList(res.data.data))
+    getProductList();
   }, []);
   
   useEffect(() => {

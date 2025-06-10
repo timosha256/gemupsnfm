@@ -17,7 +17,7 @@ interface ICartStore {
   data: ICartData | null;
   summary: ICartSummary | null;
   setIsOpen: (isOpen: boolean) => void;
-  setData: (data: ICartData) => void;
+  setData: (data: ICartData | null) => void;
   setSummary: (summary: ICartSummary) => void;
   getSummary: () => Promise<void>;
   getData: () => Promise<void>;

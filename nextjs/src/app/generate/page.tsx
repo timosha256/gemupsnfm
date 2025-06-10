@@ -163,13 +163,13 @@ export default function GeneratePage() {
                                   ip:port:login:password
                                 </li>
                                 <li className="dropdown__menu-item">
-                                  ip:port:login:password
+                                  ip:port@login:password
                                 </li>
                                 <li className="dropdown__menu-item">
-                                  ip:port:login:password
+                                  login:password@ip:port
                                 </li>
                                 <li className="dropdown__menu-item">
-                                  ip:port:login:password
+                                  login:password:ip:port
                                 </li>
                               </ul>
                             </div>

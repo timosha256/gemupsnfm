@@ -12,6 +12,8 @@ import { PageHeader } from "@/components/headers/page-header";
 import { ProductItem } from "@/components/product-item";
 import { proxyProducts } from "@/data";
 import { IProxyProduct, ISellerProduct } from "@/types/data";
+import { useProductStore } from "@/store/product";
+import { usePurchaseStore } from "@/store/purchase";
 
 
 // export const metadata: Metadata = {
@@ -28,11 +30,11 @@ import { IProxyProduct, ISellerProduct } from "@/types/data";
 // };
 
 export default function ProxyPage() {
-  const [productList, setProductList] = useState<Array<IProxyProduct & ISellerProduct>>([]);
+  const { productList, getProductList } = useProductStore((state) => state);
+  const { purchaseList } = usePurchaseStore((state) => state);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:3000/api/proxy")
-      .then((res) => setProductList(res.data.data))
+    getProductList(purchaseList);
   }, []);
 
   return (
