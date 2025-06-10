@@ -35,10 +35,6 @@ export default function ProxyPage() {
       .then((res) => setProductList(res.data.data))
   }, []);
 
-  useEffect(() => {
-    console.log(productList)
-  }, [productList]);
-
   return (
     <div className="page__wrapper">
       <SideNav />

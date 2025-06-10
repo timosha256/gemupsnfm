@@ -1,5 +1,9 @@
+"use client"
+
+import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { IProxyProduct, ISellerProduct } from "@/types/data";
+import { useCartStore } from "@/store/cart";
 
 
 type Props = IProxyProduct & ISellerProduct;
@@ -27,6 +31,7 @@ type Props = IProxyProduct & ISellerProduct;
 //     progress: 75
 
 export const ProductItem: React.FC<Props> = ({
+  id = 0,
   name = "",
   description = "",
   pricePerProxy = "0",
@@ -45,6 +50,8 @@ export const ProductItem: React.FC<Props> = ({
   currency = "$",
   progress = 75,
 }) => {
+  const { data, postItem } = useCartStore((state) => state);
+  
   return (
     <div className="product__item">
       <div className="product">
@@ -111,7 +118,7 @@ export const ProductItem: React.FC<Props> = ({
               </div>
             </div>
             <div className="order__action">
-              <button>
+              <button onClick={() => postItem(id, 1, "")}>
                 <i className="ico-cart"></i>
               </button>
               <div className="order__counter">

@@ -12,6 +12,8 @@ import { marketplaceComments } from "@/data";
 import type { ICommentItem } from "@/types/component";
 import { Footer } from "@/components/layout/footer";
 import { Scripts } from "@/components/shared/scripts";
+import { UnverifiedBox } from "@/components/shared/unverified-box";
+import { useAuthStore } from "@/store/auth";
 
 // export const metadata: Metadata = {
 //   title: "GEMUPS",
@@ -28,6 +30,7 @@ import { Scripts } from "@/components/shared/scripts";
 
 export default function AccountsPage() {
   const [comments, setComments] = useState<ICommentItem[]>([]);
+  const { user } = useAuthStore((state) => state);
 
   useEffect(() => {
     setComments(marketplaceComments.accounts);
@@ -43,20 +46,7 @@ export default function AccountsPage() {
         <main>
           <Breadcrumbs name="Accounts" />
           <PageHeader name="Accounts" />
-          <section className="verify_acc">
-            <div className="verifyAcc__message noVerify container">
-              <div className="message__ico">
-                <i className="ico-shield-close"></i>
-              </div>
-              <div className="message__data">
-                <span className="title">Unverified Seller</span>
-                <span className="subtext">
-                  To provide a feedback about the store, you must log in to your
-                  account
-                </span>
-              </div>
-            </div>
-          </section>
+          {!user?.isVerified && <UnverifiedBox />}
           <div className="innerContent__wrapper container">
             <div className="mainContent">
               <section id="account__data">

@@ -13,6 +13,7 @@ import { userData, sellerProducts } from "@/data";
 import { useAuthStore } from "@/store/auth";
 import type { IProxyProduct, ISellerProduct } from "@/types/data";
 import { useUserStore } from "@/store/user";
+import { UnverifiedBox } from "@/components/shared/unverified-box";
 
 // export const metadata: Metadata = {
 //   title: "GEMUPS",
@@ -35,7 +36,7 @@ export default function ProfilePage() {
   useEffect(() => {
     getUser();
     axios.get("http://127.0.0.1:3000/api/proxy")
-      .then((res) => setProductList(res.data))
+      .then((res) => setProductList(res.data.data))
   }, []);
   
   useEffect(() => {
@@ -50,20 +51,7 @@ export default function ProfilePage() {
           <Header />
         </div>
         <main>
-          <section className="verify_acc">
-            <div className="verifyAcc__message noVerify container">
-              <div className="message__ico">
-                <i className="ico-shield-close"></i>
-              </div>
-              <div className="message__data">
-                <span className="title">Unverified Seller</span>
-                <span className="subtext">
-                  To provide a feedback about the store, you must log in to your
-                  account
-                </span>
-              </div>
-            </div>
-          </section>
+          {!user?.isVerified && <UnverifiedBox />}
           <section className="profile-settings">
             <div className="container">
               <div className="profile-settings__content">
@@ -87,7 +75,7 @@ export default function ProfilePage() {
                       <div className="profile-settings__info-balance">
                         <span className="color--gray">Seller balance:</span>
                         &nbsp;
-                        <span className="color--green">{user?.balance} ₽</span>
+                        <span className="color--green">{user?.balance ? parseFloat(user.balance).toFixed(2) : ""} ₽</span>
                       </div>
                       <div className="profile-settings__info-rating">
                         <div className="profile-settings__rating-stars">
@@ -138,7 +126,7 @@ export default function ProfilePage() {
                           Popular
                         </h3>
                         <div className="profile-products__grid">
-                          {productList.slice(0, 3).map((data) => <ProductItem key={data.id} {...data} />)}
+                          {productList.filter((item) => item.isFeatured).map((data) => <ProductItem key={data.id} {...data} />)}
                         </div>
                       </div>
                       <div className="profile-products__all profile-products__box">

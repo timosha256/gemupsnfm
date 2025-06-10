@@ -39,7 +39,7 @@ export const Header: React.FC = () => {
             <div className="cash__wrapper">
               <i className="ico-wallet"></i>
               <a href="#" className="billing">
-                <span className="value">0.00</span>
+                <span className="value">{user?.balance ? parseFloat(user.balance).toFixed(2) : ""}</span>
                 <span className="currency">$</span>
               </a>
             </div>

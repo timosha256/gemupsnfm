@@ -11,13 +11,12 @@ interface Props {}
 export const CartModal: React.FC<Props> = () => {
   const [totalPrice, setTotalPrice] = useState<string | number>(0);
   const [currency, setCurrency] = useState<string>("");
-  const { isOpen, isValid, isLoading, isError, data, setIsOpen, getData, updateItem, deleteItem } =
-    useCartStore((state) => state);
+  const { isOpen, isValid, isLoading, isError, data, setIsOpen, getData, updateItem, deleteItem } = useCartStore((state) => state);
 
   useEffect(() => {
-    if (!data) {
-      getData();
-    }
+    // if (!data) {
+    //   getData();
+    // }
   }, []);
 
   useEffect(() => {
@@ -64,7 +63,7 @@ export const CartModal: React.FC<Props> = () => {
             <div className="cart__inner">
               {data?.items && data?.items.length > 0 ? (
                 <div className="cartProducts__wrapper">
-                  {data?.items.map(
+                  {data?.items?.length > 0 && data?.items.map(
                     ({
                       id,
                       quantity,
@@ -109,7 +108,7 @@ export const CartModal: React.FC<Props> = () => {
                               </button>
                             </div>
                             <div className="price">
-                              <span className="value">{pricePerProxy}</span>
+                              <span className="value">{parseFloat(String(+pricePerProxy * quantity)).toFixed(2)}</span>
                               <span className="currency">{currency}</span>
                             </div>
                             <button className="deleteProd" onClick={() => deleteItem(id)}>

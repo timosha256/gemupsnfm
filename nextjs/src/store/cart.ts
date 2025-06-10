@@ -84,18 +84,46 @@ export const useCartStore = create<ICartStore>()(
         }
       },
       postItem: async (proxyProductId, quantity, generationParams) => {
-        // const item = proxyProducts.find((product: IProxyProductOld) => product.id === String(proxyProductId));
+        const existData = get().data;
+        if (existData && existData?.items?.length > 0) {
+          const isItemExist = existData.items.find((item) => item.id === proxyProductId);
+          if (isItemExist) {
+            return;
+          }
+        }
+
         const response = await axios.get("http://127.0.0.1:3000/api/proxy");
         if ([200, 201].includes(response.status)) {
-          const item = (response.data as IProxyProduct[]).find((item) => item.id === proxyProductId)
-
+          const item = (response.data.data as IProxyProduct[]).find((item) => item.id === proxyProductId)
           if (item) {
+            const cartItem: ICartItem = {
+              proxyProduct: item,
+              id: proxyProductId,
+              userId: 0,
+              guestSessionId: "",
+              proxyProductId,
+              quantity: 1,
+              generationParams,
+              expiresAt: "",
+              createdAt: "",
+              updatedAt: "",
+              unitPrice: item.pricePerProxy,
+              totalPrice: item.pricePerProxy,
+              isAvailable: item.stockAvailable > 0,
+              stockStatus: "in_stock"
+            };
+
             set((state) => ({
               data: state.data
-                ? { ...state.data, items: [...state.data.items, item as unknown as ICartItem] }
+                ? {
+                    ...state.data,
+                    items: [...state.data.items, cartItem]
+                  }
                 : {
-                  items: [item as unknown as ICartItem],
-                  summary: null as unknown as ICartSummary,
+                  items: [cartItem],
+                  summary: {
+                    currency: "USD"
+                  } as unknown as ICartSummary,
                   lastUpdated: "",
                   expiresAt: "",
                   isGuest: false,
@@ -115,7 +143,10 @@ export const useCartStore = create<ICartStore>()(
         set((state) => {
           if (state.data) {
             const itemIdx = state.data.items.findIndex((item) => item.id === proxyProductId);
-            if (itemIdx >= 0) {
+            if (
+              itemIdx >= 0 &&
+              quantity <= state.data.items[itemIdx].proxyProduct.minQuantity
+            ) {
               return {
                 data: {
                   ...state.data,
