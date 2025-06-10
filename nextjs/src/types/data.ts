@@ -1,3 +1,4 @@
+export type LanguageType = "EN" | "RU" | "KZ" | "FR";
 export type CurrencyCodeType = "USD" | "EUR";
 
 export interface IUserBaseInfo {
