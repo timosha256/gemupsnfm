@@ -6,20 +6,12 @@ import { useCartStore } from "@/store/cart";
 import { InputPlacetop } from "../forms/input-placetop";
 import { CURRENCY } from "@/constants";
 
-interface Props {
-  list: Array<{
-    service: string;
-    shop: string;
-    productName: string;
-    price: number;
-    currency: string;
-  }>;
-}
+interface Props {}
 
-export const Cart: React.FC<Props> = () => {
+export const CartModal: React.FC<Props> = () => {
   const [totalPrice, setTotalPrice] = useState<string | number>(0);
   const [currency, setCurrency] = useState<string>("");
-  const { isValid, isLoading, isError, data, getData, updateItem, deleteItem } =
+  const { isOpen, isValid, isLoading, isError, data, setIsOpen, getData, updateItem, deleteItem } =
     useCartStore((state) => state);
 
   useEffect(() => {
@@ -55,14 +47,14 @@ export const Cart: React.FC<Props> = () => {
   };
 
   return (
-    <div className="hystmodal" id="cartModal" aria-hidden="true">
+    <div className={`hystmodal ${isOpen ? "hystmodal__opened hystmodal--active" : ""}`} id="cartModal">
       <div className="hystmodal__wrap">
         <div
           className="hystmodal__window baseModal"
           role="dialog"
           aria-modal="true"
         >
-          <span data-hystclose className="ico-close"></span>
+          <span data-hystclose className="ico-close" onClick={() => setIsOpen(false)}></span>
           <div className="form__data">
             <div className="form__header">
               <p className="title">

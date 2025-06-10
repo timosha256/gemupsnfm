@@ -51,6 +51,7 @@ export interface ITopupBalance {
 }
 
 export interface ISellerProduct {
+  id: string
   tags: string[];
   imgSrc: string;
   rating: number;
@@ -68,7 +69,12 @@ export interface ISellerProduct {
   progress: number;
 }
 
+export interface IProxyProductOld extends ISellerProduct {
+  type: "Residential" | "Datacenter" | string;
+}
+
 export interface IPurchase {
+  id: string;
   active: boolean;
   name: string;
   category: string;

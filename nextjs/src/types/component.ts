@@ -1,4 +1,5 @@
 export interface ICommentItem {
+  id: string;
   imgSrc: string;
   ico: string;
   name: string;

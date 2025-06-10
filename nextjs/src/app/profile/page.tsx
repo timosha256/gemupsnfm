@@ -3,13 +3,16 @@
 import type { Metadata } from "next";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 import { SideNav } from "@/components/side-nav";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Scripts } from "@/components/shared/scripts";
-import { userData, ISellerProducts } from "@/data";
+import { ProductItem } from "@/components/product-item";
+import { userData, sellerProducts } from "@/data";
 import { useAuthStore } from "@/store/auth";
-import type { ISellerProduct } from "@/types/data";
+import type { IProxyProduct, ISellerProduct } from "@/types/data";
+import { useUserStore } from "@/store/user";
 
 // export const metadata: Metadata = {
 //   title: "GEMUPS",
@@ -25,12 +28,19 @@ import type { ISellerProduct } from "@/types/data";
 // };
 
 export default function ProfilePage() {
-  const [productList, setProductList] = useState<ISellerProduct[]>([]);
+  const [productList, setProductList] = useState<Array<IProxyProduct & ISellerProduct>>([]);
   const { user } = useAuthStore((state) => state);
+  const { user: userNew, getUser } = useUserStore((state) => state);
 
   useEffect(() => {
-    setProductList(ISellerProducts);
+    getUser();
+    axios.get("http://127.0.0.1:3000/api/proxy")
+      .then((res) => setProductList(res.data))
   }, []);
+  
+  useEffect(() => {
+    console.log(userNew);
+  }, [userNew]);
 
   return (
     <div className="page__wrapper profile-page">
@@ -128,183 +138,13 @@ export default function ProfilePage() {
                           Popular
                         </h3>
                         <div className="profile-products__grid">
-                          {productList.slice(0, 3).map(({
-                            tags,
-                            imgSrc,
-                            rating,
-                            shop,
-                            sellerList,
-                            product,
-                            price,
-                            currency,
-                            progress
-                          }) => (
-                            <div className="product__item" key={uuidv4()}>
-                              <a className="product" href="#" title="name">
-                                <div className="product__wrapper">
-                                  <div className="product__tags">
-                                    <span className="tag icon">
-                                      <i className="ico-shield"></i>
-                                    </span>
-                                    {tags.map((tag) => <span key={uuidv4()} className="tag">{tag}</span>)}
-                                  </div>
-                                  <div className="product__data">
-                                    <div className="product__img">
-                                      <img src="/img/tests/product.png" alt="name" />
-                                    </div>
-                                    <div className="data__wrapper">
-                                      <div className="left__side">
-                                        <div className="rating__wrapper">
-                                          <i className="ico-star"></i>
-                                          <span className="rating">{rating}</span>
-                                        </div>
-                                        <span className="name">{shop}</span>
-                                      </div>
-                                      <div className="right__side">
-                                        <div className="avatars__wrapper">
-                                          {sellerList.length > 3
-                                            ? sellerList.slice(0, 3).map(({ avatar }) => <img key={uuidv4()} src={avatar} alt="name" />)
-                                            : sellerList.map(({ avatar }) => <img key={uuidv4()} src={avatar} alt="name" />)}
-                                        </div>
-                                        <span className="seller">{sellerList.length}</span>
-                                      </div>
-                                    </div>
-                                    <div className="content__area">
-                                      <span className="name">
-                                        {product.name}
-                                      </span>
-                                      <div className="sub__content">
-                                        <p>
-                                          {product.description}
-                                        </p>
-                                      </div>
-                                      <button className="openContent">
-                                        <i className="ico-arrow"></i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                  <div className="buttom">
-                                    <div className="price">
-                                      <span className="currency">{currency}</span>
-                                      <span className="value">{price}</span>
-                                    </div>
-                                    <div className="itemsLeft">
-                                      <span className="desk">
-                                        Only <span>{product.count}</span> pieces left
-                                      </span>
-                                      <div className="progress-bar">
-                                        <div className="remaining"></div>
-                                        <span className="value">{progress}%</span>
-                                      </div>
-                                    </div>
-                                    <div className="order__action">
-                                      <button>
-                                        <i className="ico-cart"></i>
-                                      </button>
-                                      <div className="order__counter">
-                                        <form action="">
-                                          <button>-</button>
-                                          <input type="text" placeholder="1" />
-                                          <button>+</button>
-                                        </form>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </a>
-                            </div>
-                          ))}
+                          {productList.slice(0, 3).map((data) => <ProductItem key={data.id} {...data} />)}
                         </div>
                       </div>
                       <div className="profile-products__all profile-products__box">
                         <h3 className="profile-products__grid-title">All</h3>
                         <div className="profile-products__grid">
-                          {productList.map(({
-                            tags,
-                            imgSrc,
-                            rating,
-                            shop,
-                            sellerList,
-                            product,
-                            price,
-                            currency,
-                            progress
-                          }) => (
-                            <div className="product__item" key={uuidv4()}>
-                              <a className="product" href="#" title="name">
-                                <div className="product__wrapper">
-                                  <div className="product__tags">
-                                    <span className="tag icon">
-                                      <i className="ico-shield"></i>
-                                    </span>
-                                    {tags.map((tag) => <span key={uuidv4()} className="tag">{tag}</span>)}
-                                  </div>
-                                  <div className="product__data">
-                                    <div className="product__img">
-                                      <img src="/img/tests/product.png" alt="name" />
-                                    </div>
-                                    <div className="data__wrapper">
-                                      <div className="left__side">
-                                        <div className="rating__wrapper">
-                                          <i className="ico-star"></i>
-                                          <span className="rating">{rating}</span>
-                                        </div>
-                                        <span className="name">{shop}</span>
-                                      </div>
-                                      <div className="right__side">
-                                        <div className="avatars__wrapper">
-                                          {sellerList.length > 3
-                                            ? sellerList.slice(0, 3).map(({ avatar }) => <img key={uuidv4()} src={avatar} alt="name" />)
-                                            : sellerList.map(({ avatar }) => <img key={uuidv4()} src={avatar} alt="name" />)}
-                                        </div>
-                                        <span className="seller">{sellerList.length}</span>
-                                      </div>
-                                    </div>
-                                    <div className="content__area">
-                                      <span className="name">
-                                        {product.name}
-                                      </span>
-                                      <div className="sub__content">
-                                        <p>
-                                          {product.description}
-                                        </p>
-                                      </div>
-                                      <button className="openContent">
-                                        <i className="ico-arrow"></i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                  <div className="buttom">
-                                    <div className="price">
-                                      <span className="currency">{currency}</span>
-                                      <span className="value">{price}</span>
-                                    </div>
-                                    <div className="itemsLeft">
-                                      <span className="desk">
-                                        Only <span>{product.count}</span> pieces left
-                                      </span>
-                                      <div className="progress-bar">
-                                        <div className="remaining"></div>
-                                        <span className="value">{progress}%</span>
-                                      </div>
-                                    </div>
-                                    <div className="order__action">
-                                      <button>
-                                        <i className="ico-cart"></i>
-                                      </button>
-                                      <div className="order__counter">
-                                        <form action="">
-                                          <button>-</button>
-                                          <input type="text" placeholder="1" />
-                                          <button>+</button>
-                                        </form>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </a>
-                            </div>
-                          ))}
+                          {productList.map((data) => <ProductItem key={data.id} {...data} />)}
                         </div>
                       </div>
                       <div className="pagination-box">

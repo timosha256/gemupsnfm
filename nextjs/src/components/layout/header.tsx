@@ -5,14 +5,17 @@ import { v4 as uuidv4 } from "uuid";
 import LangSwitch from "../shared/header/lang-switch";
 import Burger from "../shared/header/burger";
 import Cart from "../shared/header/cart";
+import { CartModal } from "../shared/modals/cart";
 import AuthActions from "../shared/header/auth-actions";
 import { useAuth } from "@/hooks/auth";
 import { useAuthStore } from "@/store/auth";
+import { useCartStore } from "@/store/cart";
 
 
 export const Header: React.FC = () => {
   const { isAuth } = useAuth();
   const { user, logout } = useAuthStore((state) => state);
+
   const menuItemList = [
     { id: uuidv4(), ico: "ico-user", label: "My Profile", href: "/profile" },
     { id: uuidv4(), ico: "ico-cart-bag", label: "My Purchases", href: "/purchases" },
@@ -99,6 +102,7 @@ export const Header: React.FC = () => {
             </div>
           </div>
         </div>
+        <CartModal />
       </header>
     );
   }
@@ -154,6 +158,7 @@ export const Header: React.FC = () => {
           </div>
         </div>
       </div>
+      <CartModal />
     </header>
   );
 };
