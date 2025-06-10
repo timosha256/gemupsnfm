@@ -8,6 +8,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Scripts } from "@/components/shared/scripts";
 import { userData, ISellerProducts } from "@/data";
+import { useAuthStore } from "@/store/auth";
 import type { ISellerProduct } from "@/types/data";
 
 // export const metadata: Metadata = {
@@ -25,6 +26,7 @@ import type { ISellerProduct } from "@/types/data";
 
 export default function ProfilePage() {
   const [productList, setProductList] = useState<ISellerProduct[]>([]);
+  const { user } = useAuthStore((state) => state);
 
   useEffect(() => {
     setProductList(ISellerProducts);
@@ -71,11 +73,11 @@ export default function ProfilePage() {
                       <img src="img/tests/profile/avatar.png" alt="avatar" />
                     </div>
                     <div className="profile-settings__info-text">
-                      <h3 className="profile-settings__info-name">Tele Go</h3>
+                      <h3 className="profile-settings__info-name">{user?.username}</h3>
                       <div className="profile-settings__info-balance">
                         <span className="color--gray">Seller balance:</span>
                         &nbsp;
-                        <span className="color--green">100 000 ₽</span>
+                        <span className="color--green">{user?.balance} ₽</span>
                       </div>
                       <div className="profile-settings__info-rating">
                         <div className="profile-settings__rating-stars">

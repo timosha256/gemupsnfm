@@ -9,9 +9,9 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-    const accessToken = Cookies.get("access_token");
-    if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
+    const token = Cookies.get("access_token") || Cookies.get("session_id");
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
     }
 
     return config;

@@ -50,7 +50,7 @@ export const Header: React.FC = () => {
                 <ul className="userMenu__items">
                   {menuItemList.map(({ id, ico, label, href }) => (
                     <li className="userMenu__item" key={id}>
-                      <Link href={href} title="">
+                      <Link href={href} title="" onClick={label.toLowerCase() === "logout" ? logout : () => null}>
                         <i className={ico}></i>
                         {label}
                       </Link>

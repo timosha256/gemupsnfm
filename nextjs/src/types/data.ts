@@ -1,16 +1,53 @@
-export interface IUser {
-  id: number;
+export type CurrencyCodeType = "USD" | "EUR";
+
+export interface IUserBaseInfo {
   email: string;
   username: string;
   firstName: string;
   lastName: string;
+}
+
+export interface IUserBalanceInfo {
+  balance: string;
+  currency: string;
+  userId: number;
+  isGuest: boolean;
+  formattedBalance: string;
+  lastUpdated: string;
+  pendingTopups: string;
+  totalDeposited: string;
+}
+
+export interface IUserStats {
+  totalOrders: number;
+  totalSpent: string;
+  activeProxies: number;
+  lastOrderDate: string;
+  registrationDate: string;
+  daysSinceRegistration: number;
+  averageOrderAmount: string;
+  totalProxiesPurchased: number;
+  periodDays: number;
+  currency: string;
+}
+
+export interface IUser extends IUserBaseInfo {
+  id: number;
   isActive: boolean;
   isVerified: boolean;
   isGuest: boolean;
-  // isAdmin: boolean
-  // role: string
+  isAdmin: boolean
+  role: string
   balance: string;
   guestSessionId: string;
+  createdAt: string
+  updatedAt: string
+}
+
+export interface ITopupBalance {
+  amount: number
+  paymentMethod: "cryptomus" | string
+  currency: CurrencyCodeType
 }
 
 export interface ISellerProduct {
@@ -38,7 +75,7 @@ export interface IPurchase {
   shop: string;
 }
 
-export interface ProxyProduct {
+export interface IProxyProduct {
   id: number;
   name: string;
   description: string;
@@ -69,7 +106,7 @@ export interface ICartItem {
   expiresAt: string;
   createdAt: string;
   updatedAt: string;
-  proxyProduct: ProxyProduct;
+  proxyProduct: IProxyProduct;
   unitPrice: string;
   totalPrice: string;
   isAvailable: boolean;
@@ -93,7 +130,49 @@ export interface ICartSummary {
 export interface ICartData {
   items: ICartItem[];
   summary: ICartSummary;
-  lastUpdated: string; // ISO date string
-  expiresAt: string; // ISO date string
+  lastUpdated: string;
+  expiresAt: string;
   isGuest: boolean;
+}
+
+export interface IProductsCategoryStats {
+  category: string;
+  categoryName: string;
+  productsCount: number;
+  avgPrice: string;
+  countriesCount: number;
+  minPrice: string;
+  maxPrice: string;
+}
+
+export interface IProductsCountries {
+  countryCode: string;
+  countryName: string;
+  productsCount: number;
+  flagUrl: string;
+  avgPrice: string;
+  categories: string[];
+}
+
+export interface IProductAvailability {
+  productId: number;
+  requestedQuantity: number;
+  availableQuantity: number;
+  isAvailable: boolean;
+  estimatedPrice: string;
+  currency: CurrencyCodeType;
+  message: string;
+  stockAvailable: number;
+  maxQuantity: number;
+  pricePerUnit: string;
+  totalPrice: string;
+}
+
+export interface IProductCountryInfo {
+  countryCode: string;
+  countryName: string;
+  productsCount: number;
+  flagUrl: string;
+  avgPrice: string;
+  categories: string[];
 }
