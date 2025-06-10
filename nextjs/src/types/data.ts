@@ -1,5 +1,13 @@
 export type LanguageType = "EN" | "RU" | "KZ" | "FR";
 export type CurrencyCodeType = "USD" | "EUR";
+export type ProxyProtocolType = "HTTP" | "HTTPS" | "SOCKS5";
+export type ProxySessionType = "Dynamic" | "Static";
+export type ProxyLocationType = "Random" | "Country";
+export type ProxyFormatType =
+  | "ip:port:login:password"
+  | "ip:port@login:password"
+  | "login:password@ip:port"
+  | "login:password:ip:port";
 
 export interface IUserBaseInfo {
   email: string;
@@ -37,22 +45,22 @@ export interface IUser extends IUserBaseInfo {
   isActive: boolean;
   isVerified: boolean;
   isGuest: boolean;
-  isAdmin: boolean
-  role: string
+  isAdmin: boolean;
+  role: string;
   balance: string;
   guestSessionId: string;
-  createdAt: string
-  updatedAt: string
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ITopupBalance {
-  amount: number
-  paymentMethod: "cryptomus" | string
-  currency: CurrencyCodeType
+  amount: number;
+  paymentMethod: "cryptomus" | string;
+  currency: CurrencyCodeType;
 }
 
 export interface ISellerProduct {
-  id: string
+  id: string;
   tags: string[];
   imgSrc: string;
   rating: number;
@@ -68,6 +76,22 @@ export interface ISellerProduct {
   price: number;
   currency: string;
   progress: number;
+}
+
+export interface IProxyProviderData {
+  id: string | number;
+  isActive: boolean;
+  icon?: string;
+  name: string;
+  tag?: string;
+}
+
+export interface IProxyBaseData {
+  type: ProxyProtocolType;
+  ip: string;
+  port: number;
+  login: string;
+  password: string;
 }
 
 export interface IProxyProductOld extends ISellerProduct {

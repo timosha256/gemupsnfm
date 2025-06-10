@@ -70,6 +70,13 @@ export const CartModal: React.FC<Props> = () => {
     return totalPrice;
   };
 
+  const handleQuantityChange = async (e: React.ChangeEvent<HTMLInputElement>, id: number, generationParams: string) => {
+    const quantity = parseInt(e.target.value);
+    if (!Number.isNaN(quantity)) {
+      await updateItem(id, quantity, generationParams);
+    }
+  }
+
   return (
     <div className={`hystmodal ${isOpen ? "hystmodal__opened hystmodal--active" : ""}`} id="cartModal">
       <div className="hystmodal__wrap">
@@ -124,6 +131,7 @@ export const CartModal: React.FC<Props> = () => {
                                 type="text"
                                 placeholder="1"
                                 value={quantity}
+                                onChange={(e) => handleQuantityChange(e, id, generationParams)}
                               />
                               <button
                                 type="button"

@@ -68,7 +68,7 @@
                 opacity: 0.3;
                 color: inherit;
             }
-            &--active {
+            &.active {
                 background-color: rgba(19, 241, 149, 0.1);
                 color: #13F195;
             }
@@ -141,7 +141,7 @@
                 }
             }
         }
-        &--active {
+        &.active {
             .dropdown {
                 &__toggle {
                     border-bottom-right-radius: 0;
@@ -155,7 +155,7 @@
                 }
             }
         }
-        &--disabled {
+        &.disabled {
             .dropdown__toggle {
                 opacity: 0.3;
             }

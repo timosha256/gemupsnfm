@@ -1,14 +1,19 @@
 "use client"
 
 import type { Metadata } from "next";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 import { SideNav } from "@/components/side-nav";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { PageHeader } from "@/components/headers/page-header";
-import { Footer } from "@/components/layout/footer";
 import { Scripts } from "@/components/shared/scripts";
+import { Dropdown } from "@/components/ui/dropdown";
 import { generatedProxyList } from "@/data";
+import { IDropdown } from "@/types/component";
+import { ProxyProtocolType, ProxySessionType, IProxyProviderData, ProxyLocationType, ProxyFormatType } from "@/types/data";
+import { useProxyListStore, useProxySettingsStore } from "@/store/proxy";
 
 // export const metadata: Metadata = {
 //   title: "GEMUPS",
@@ -23,12 +28,106 @@ import { generatedProxyList } from "@/data";
 //   },
 // };
 
+
+
 export default function GeneratePage() {
-  const [proxyList, setProxyList] = useState<string[]>([]);
+  const {
+    providerList,
+    protocol,
+    count,
+    format,
+    locationType,
+    country,
+    state,
+    city,
+    sessionType,
+    ttl,
+    setValue
+  } = useProxySettingsStore((state) => state);
+  const { proxyList, setProxyList, getProxyList } = useProxyListStore((state) => state);
+
+  const [isMoreOptionsVisible, setIsMoreOptionsVisible] = useState<boolean>(false);
+  
+  const [proxyProtocol, setProxyProtocol] = useState<ProxyProtocolType>(protocol);
+  const [proxySessionType, setProxySessionType] = useState<ProxySessionType>(sessionType);
+  const [proxyCount, setProxyCount] = useState<number>(count);
+  const [proxyLocationType, setProxyLocationType] = useState<ProxyLocationType>(locationType);
+
+  const [proxyProviderList, setProxyProviderList] = useState<IProxyProviderData[]>([
+    { id: uuidv4(), isActive: false, icon: "/img/flag/poland.svg", name: "Lola", tag: "1234" },
+    { id: uuidv4(), isActive: false, icon: "/img/icons/planet--green.svg", name: "Lola", tag: "1234" },
+    { id: uuidv4(), isActive: false, name: "Bob" },
+    { id: uuidv4(), isActive: false, name: "Paul" },
+  ]);
+
+  const [proxyFormatList, setProxyFormatList] = useState<IDropdown["list"]>([
+    { id: uuidv4(), isActive: true, label: "ip:port:login:password" },
+    { id: uuidv4(), isActive: false, label: "ip:port@login:password" },
+    { id: uuidv4(), isActive: false, label: "login:password@ip:port" },
+    { id: uuidv4(), isActive: false, label: "login:password:ip:port" }
+  ]);
+
+  const [proxyCountryList, setProxyCountryList] = useState<IDropdown["list"]>([
+    { id: uuidv4(), isActive: true, label: "Poland" },
+    { id: uuidv4(), isActive: false, label: "France" },
+    { id: uuidv4(), isActive: false, label: "Germany" },
+    { id: uuidv4(), isActive: false, label: "USA" }
+  ]);
+
+  const [proxyStateList, setProxyStateList] = useState<IDropdown["list"]>([
+    { id: uuidv4(), isActive: true, label: "State" },
+    { id: uuidv4(), isActive: false, label: "State" },
+    { id: uuidv4(), isActive: false, label: "State" },
+    { id: uuidv4(), isActive: false, label: "State" }
+  ]);
+
+  const [proxyCityList, setProxyCityList] = useState<IDropdown["list"]>([
+    { id: uuidv4(), isActive: true, label: "City" },
+    { id: uuidv4(), isActive: false, label: "City" },
+    { id: uuidv4(), isActive: false, label: "City" },
+    { id: uuidv4(), isActive: false, label: "City" }
+  ]);
+
+  const [proxyTtlList, setProxyTtlList] = useState<IDropdown["list"]>([
+    { id: "ttl-3600", isActive: true, label: "60 min" },
+    { id: "ttl-1800", isActive: false, label: "30 min" },
+    { id: "ttl-900", isActive: false, label: "15 min" },
+    { id: "ttl-300", isActive: false, label: "5 min" },
+    { id: "ttl-60", isActive: false, label: "1 min" },
+    { id: "ttl-30", isActive: false, label: "30 sec" },
+  ]);
 
   useEffect(() => {
-    setProxyList(generatedProxyList);
+    getProxyList();
   }, []);
+
+  const handleSelectProxyProvider = (id: string | number) => {
+    setProxyProviderList(
+      proxyProviderList.map((item) => ({
+        ...item,
+        isActive: item.id === id ? !item.isActive : item.isActive
+      }))
+    )
+  };
+
+  const handleSaveSettings = () => {
+    const activeItemData = {
+      format: proxyFormatList.find((item) => item.isActive)?.label || "ip:port:login:password",
+      country: proxyCountryList.find((item) => item.isActive)?.label || "",
+      state: proxyStateList.find((item) => item.isActive)?.label || "",
+      city: proxyCityList.find((item) => item.isActive)?.label || ""
+    }
+
+    setValue("providerList", proxyProviderList);
+    setValue("protocol", proxyProtocol);
+    setValue("count", proxyCount);
+    // @ts-ignore
+    setValue("format", activeItemData.format?.label)
+    setValue("locationType", proxyLocationType);
+    setValue("country", activeItemData.country)
+    setValue("state", activeItemData.state);
+    setValue("city", activeItemData.city);
+  };
 
   return (
     <div className="page__wrapper generate-page">
@@ -64,38 +163,24 @@ export default function GeneratePage() {
                             <img src="/img/icons/hint.svg" alt="hint" />
                           </h3>
                           <div className="box__btn-list">
-                            <button
-                              className="box__btn box__btn--active"
-                              type="button"
-                            >
-                              <img
-                                className="box__btn-icon"
-                                src="/img/flag/poland.svg"
-                                alt="Poland"
-                                data-title="Poland"
-                              />
-                              <span className="box__btn-caption">Lola</span>
-                              <span className="box__btn-tag">#1234</span>
-                            </button>
-                            <button
-                              className="box__btn box__btn--active"
-                              type="button"
-                            >
-                              <img
-                                className="box__btn-icon"
-                                src="/img/icons/planet--green.svg"
-                                alt="Poland"
-                                data-title="Poland"
-                              />
-                              <span className="box__btn-caption">Lola</span>
-                              <span className="box__btn-tag">#1234</span>
-                            </button>
-                            <button className="box__btn" type="button">
-                              <span className="box__btn-caption">Bob</span>
-                            </button>
-                            <button className="box__btn" type="button">
-                              <span className="box__btn-caption">Paul</span>
-                            </button>
+                            {proxyProviderList.map(({ id, isActive, icon, name, tag }) => (
+                              <button
+                                type="button"
+                                className={`box__btn ${isActive && "active"}`}
+                                onClick={() => handleSelectProxyProvider(id)}
+                              >
+                                {icon &&
+                                  <img
+                                    className="box__btn-icon"
+                                    src={icon}
+                                    alt="Poland"
+                                    data-title="Poland"
+                                  />
+                                }
+                                <span className="box__btn-caption">{name}</span>
+                                {tag && <span className="box__btn-tag">#{tag}</span>}
+                              </button>
+                            ))}
                           </div>
                         </div>
                         <div className="box__column">
@@ -105,12 +190,17 @@ export default function GeneratePage() {
                           </h3>
                           <div className="box__btn-list">
                             <button
-                              className="box__btn box__btn--active"
                               type="button"
+                              className={`box__btn ${proxyProtocol === "HTTPS" && "active"}`}
+                              onClick={() => setProxyProtocol("HTTPS")}
                             >
                               <span className="box__btn-caption">HTTP(S)</span>
                             </button>
-                            <button className="box__btn" type="button">
+                            <button
+                              type="button"
+                              className={`box__btn ${proxyProtocol === "SOCKS5" && "active"}`}
+                              onClick={() => setProxyProtocol("SOCKS5")}
+                            >
                               <span className="box__btn-caption">SOCKS5</span>
                             </button>
                           </div>
@@ -126,17 +216,20 @@ export default function GeneratePage() {
                                 id="minus"
                                 className="minus-btn"
                                 data-input-id="generate-proxy-count-input"
+                                onClick={() => setProxyCount(proxyCount === 0 ? 0 : proxyCount - 1)}
                               ></button>
                               <input
-                                type="number"
-                                value="100"
                                 id="generate-proxy-count-input"
                                 className="generate-page__count-panel-input"
+                                type="number"
+                                value={proxyCount}
+                                onChange={(e) => setProxyCount(parseInt(e.target.value) < 0 ? 0 : parseInt(e.target.value))}
                               />
                               <button
                                 id="plus"
                                 className="plus-btn"
                                 data-input-id="generate-proxy-count-input"
+                                onClick={() => setProxyCount(proxyCount + 1)}
                               ></button>
                             </div>
                           </div>
@@ -145,203 +238,130 @@ export default function GeneratePage() {
                               <span>Format:&nbsp;</span>
                               <img src="/img/icons/hint.svg" alt="hint" />
                             </h3>
-                            <div
+                            <Dropdown
                               id="generate-proxy-format-dropdown"
-                              className="generate-page__format-panel-dropdown dropdown"
-                            >
-                              <button className="dropdown__toggle">
-                                <span id="dropdown-value">
-                                  ip:port:login:password
-                                </span>
-                                <img
-                                  src="/img/icons/dropdown-arrow.svg"
-                                  alt=""
-                                />
-                              </button>
-                              <ul className="dropdown__menu">
-                                <li className="dropdown__menu-item">
-                                  ip:port:login:password
-                                </li>
-                                <li className="dropdown__menu-item">
-                                  ip:port@login:password
-                                </li>
-                                <li className="dropdown__menu-item">
-                                  login:password@ip:port
-                                </li>
-                                <li className="dropdown__menu-item">
-                                  login:password:ip:port
-                                </li>
-                              </ul>
-                            </div>
+                              className="generate-page__format-panel-dropdown"
+                              list={proxyFormatList}
+                              setList={setProxyFormatList}
+                              enableIcon
+                            />
                           </div>
                           <div className="generate-page__more-options-panel generate-page__panel-box">
                             <span></span>
                             <button
                               id="show-more-options"
                               className="box__btn box__btn--light"
+                              onClick={() => setIsMoreOptionsVisible(!isMoreOptionsVisible)}
                             >
-                              Show more options
+                              {isMoreOptionsVisible ? "Hide" : "Show"} more options
                             </button>
                           </div>
                         </div>
                       </div>
-                      <div className="generate-page__settings-box generate-page__settings-box--bottom box">
-                        <div className="box__column">
-                          <h3 className="box__column-title">
-                            <span>Location:&nbsp;</span>
-                            <img src="/img/icons/hint.svg" alt="hint" />
-                          </h3>
-                          <div className="generate-page__location-panel box__row">
-                            <div className="generate-page__location-panel-btn-list box__btn-list">
-                              <button
-                                className="box__btn box__btn--active"
-                                type="button"
-                              >
-                                Random
-                              </button>
-                              <button className="box__btn" type="button">
-                                Country
-                              </button>
-                            </div>
-                            <div className="generate-page__location-panel-dropdown-list dropdown-list dropdown-list--row">
-                              <div
-                                id="generate-proxy-country-dropdown"
-                                className="generate-page__location-panel-dropdown dropdown dropdown--disabled"
-                              >
-                                <button className="dropdown__toggle">
-                                  <span id="dropdown-value">Country</span>
-                                  <img
-                                    src="/img/icons/dropdown-arrow.svg"
-                                    alt=""
-                                  />
-                                </button>
-                                <ul className="dropdown__menu">
-                                  <li className="dropdown__menu-item">
-                                    Poland
-                                  </li>
-                                  <li className="dropdown__menu-item">
-                                    Poland
-                                  </li>
-                                  <li className="dropdown__menu-item">
-                                    Poland
-                                  </li>
-                                  <li className="dropdown__menu-item">
-                                    Poland
-                                  </li>
-                                </ul>
-                              </div>
-                              <div
-                                id="generate-proxy-state-dropdown"
-                                className="generate-page__location-panel-dropdown dropdown dropdown--disabled"
-                              >
-                                <button className="dropdown__toggle">
-                                  <span id="dropdown-value">State</span>
-                                  <img
-                                    src="/img/icons/dropdown-arrow.svg"
-                                    alt=""
-                                  />
-                                </button>
-                                <ul className="dropdown__menu">
-                                  <li className="dropdown__menu-item">State</li>
-                                  <li className="dropdown__menu-item">State</li>
-                                  <li className="dropdown__menu-item">State</li>
-                                  <li className="dropdown__menu-item">State</li>
-                                </ul>
-                              </div>
-                              <div
-                                id="generate-proxy-city-dropdown"
-                                className="generate-page__location-panel-dropdown dropdown dropdown--disabled"
-                              >
-                                <button className="dropdown__toggle">
-                                  <span id="dropdown-value">City</span>
-                                  <img
-                                    src="/img/icons/dropdown-arrow.svg"
-                                    alt=""
-                                  />
-                                </button>
-                                <ul className="dropdown__menu">
-                                  <li className="dropdown__menu-item">City</li>
-                                  <li className="dropdown__menu-item">City</li>
-                                  <li className="dropdown__menu-item">City</li>
-                                  <li className="dropdown__menu-item">City</li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="box__row">
-                          <div className="generate-page__session-panel generate-page__panel-box">
+                      {isMoreOptionsVisible &&
+                        <div className="generate-page__settings-box generate-page__settings-box--bottom box">
+                          <div className="box__column">
                             <h3 className="box__column-title">
-                              <span>Session type:&nbsp;</span>
+                              <span>Location:&nbsp;</span>
                               <img src="/img/icons/hint.svg" alt="hint" />
                             </h3>
-                            <div className="generate-page__session-panel-btn-list box__btn-list">
-                              <button className="box__btn" type="button">
-                                Dynamic
-                              </button>
-                              <button
-                                className="box__btn box__btn--active"
-                                type="button"
-                              >
-                                Static
-                              </button>
-                            </div>
-                          </div>
-                          <div className="generate-page__ttl-panel generate-page__panel-box">
-                            <h3 className="box__column-title">
-                              <span>TTL:&nbsp;</span>
-                              <img src="/img/icons/hint.svg" alt="hint" />
-                            </h3>
-                            <div
-                              id="generate-proxy-ttl-dropdown"
-                              className="generate-page__ttl-panel-dropdown dropdown"
-                            >
-                              <button className="dropdown__toggle">
-                                <span id="dropdown-value">60 min</span>
-                                <img
-                                  src="/img/icons/dropdown-arrow.svg"
-                                  alt=""
+                            <div className="generate-page__location-panel box__row">
+                              <div className="generate-page__location-panel-btn-list box__btn-list">
+                                <button
+                                  className={`box__btn ${proxyLocationType === "Random" && "active"}`}
+                                  type="button"
+                                  onClick={() => setProxyLocationType("Random")}
+                                >
+                                  Random
+                                </button>
+                                <button
+                                  className={`box__btn ${proxyLocationType === "Country" && "active"}`}
+                                  type="button"
+                                  onClick={() => setProxyLocationType("Country")}
+                                >
+                                  Country
+                                </button>
+                              </div>
+                              <div className="generate-page__location-panel-dropdown-list dropdown-list dropdown-list--row">
+                                <Dropdown
+                                  id="generate-proxy-country-dropdown"
+                                  className="generate-page__location-panel-dropdown"
+                                  caption="Country"
+                                  list={proxyCountryList}
+                                  setList={setProxyCountryList}
+                                  enableIcon
+                                  disabled={proxyLocationType === "Random"}
                                 />
-                              </button>
-                              <ul className="dropdown__menu">
-                                <li
-                                  className="dropdown__menu-item"
-                                  data-value="3600"
-                                >
-                                  60 min
-                                </li>
-                                <li
-                                  className="dropdown__menu-item"
-                                  data-value="3600"
-                                >
-                                  60 min
-                                </li>
-                                <li
-                                  className="dropdown__menu-item"
-                                  data-value="3600"
-                                >
-                                  60 min
-                                </li>
-                                <li
-                                  className="dropdown__menu-item"
-                                  data-value="3600"
-                                >
-                                  60 min
-                                </li>
-                              </ul>
+                                <Dropdown
+                                  id="generate-proxy-state-dropdown"
+                                  className="generate-page__location-panel-dropdown"
+                                  caption="State"
+                                  list={proxyStateList}
+                                  setList={setProxyStateList}
+                                  enableIcon
+                                  disabled={proxyLocationType === "Random"}
+                                />
+                                <Dropdown
+                                  id="generate-proxy-city-dropdown"
+                                  className="generate-page__location-panel-dropdown"
+                                  caption="City"
+                                  list={proxyCityList}
+                                  setList={setProxyCityList}
+                                  enableIcon
+                                  disabled={proxyLocationType === "Random"}
+                                />
+                              </div>
                             </div>
                           </div>
-                          <div className="generate-page__panel-box">
-                            <span></span>
-                            <button
-                              id="save-and-close"
-                              className="box__btn bg--green color--black hover hover--opacity"
-                            >
-                              Save and close
-                            </button>
+                          <div className="box__row">
+                            <div className="generate-page__session-panel generate-page__panel-box">
+                              <h3 className="box__column-title">
+                                <span>Session type:&nbsp;</span>
+                                <img src="/img/icons/hint.svg" alt="hint" />
+                              </h3>
+                              <div className="generate-page__session-panel-btn-list box__btn-list">
+                                <button
+                                  type="button"
+                                  className={`box__btn ${proxySessionType === "Dynamic" && "active"}`}
+                                  onClick={() => setProxySessionType("Dynamic")}
+                                >
+                                  Dynamic
+                                </button>
+                                <button
+                                  type="button"
+                                  className={`box__btn ${proxySessionType === "Static" && "active"}`}
+                                  onClick={() => setProxySessionType("Static")}
+                                >
+                                  Static
+                                </button>
+                              </div>
+                            </div>
+                            <div className="generate-page__ttl-panel generate-page__panel-box">
+                              <h3 className="box__column-title">
+                                <span>TTL:&nbsp;</span>
+                                <img src="/img/icons/hint.svg" alt="hint" />
+                              </h3>
+                              <Dropdown
+                                id="generate-proxy-ttl-dropdown"
+                                className="generate-page__ttl-panel-dropdown"
+                                list={proxyTtlList}
+                                setList={setProxyTtlList}
+                                enableIcon
+                              />
+                            </div>
+                            <div className="generate-page__panel-box">
+                              <span></span>
+                              <button
+                                id="save-and-close"
+                                className="box__btn bg--green color--black hover hover--opacity"
+                                onClick={handleSaveSettings}
+                              >
+                                Save and close
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      }
                     </div>
                     <div className="sideData">
                       <div className="side__content">
@@ -359,16 +379,16 @@ export default function GeneratePage() {
                   </div>
                   <div className="generated__area">
                     <div className="top__head">
-                      <div className="title">100 proxy generated</div>
+                      <div className="title">{proxyList.length} proxy generated</div>
                       <button type="button" className="genCopy">
                         Copy<i className="ico-copy"></i>
                       </button>
                     </div>
                     <div className="generated__list">
-                      {proxyList.map((proxy, idx) => (
-                        <div className="list__item">
+                      {proxyList.map(({ ip, port, login, password }, idx) => (
+                        <div className="list__item" key={uuidv4()}>
                           <span className="number">{idx + 1}</span>
-                          <span className="value">{proxy}</span>
+                          <span className="value">{`${ip}:${port}:${login}:${password}`}</span>
                         </div>
                       ))}
                     </div>
