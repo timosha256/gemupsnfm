@@ -75,6 +75,7 @@ export interface ISellerProduct {
   shop: string;
   sellerList: Array<{
     avatar: string;
+    sales?: number;
   }>;
   product: {
     name: string;

@@ -39,10 +39,6 @@ export const Header: React.FC = () => {
     { id: uuidv4(), ico: "ico-logout", label: "Logout", href: "/" },
   ];
 
-  useEffect(() => {
-    console.log(isMenuOpen);
-  }, [isMenuOpen]);
-
   if (isAuth) {
     return (
       <header className="auth">
@@ -150,7 +146,7 @@ export const Header: React.FC = () => {
           <Cart />
           <Burger />
         </div>
-        <div className="mobileMenu__wrapper">
+        <div className={`mobileMenu__wrapper ${isMenuOpen ? "active" : ""}`}>
           <div className="head__area">
             <LangSwitch />
             <button

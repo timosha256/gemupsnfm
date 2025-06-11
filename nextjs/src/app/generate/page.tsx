@@ -443,7 +443,7 @@ export default function GeneratePage() {
                       <button
                         type="button"
                         className="genCopy"
-                        style={isProxiesCopied ? { backgroundColor: "#07462E" } : undefined}
+                        style={isProxiesCopied ? { backgroundColor: "#159962" } : undefined}
                         onClick={handleProxiesCopy}
                       >
                         {isProxiesCopied ? "Copied" : "Copy"}<i className="ico-copy"></i>

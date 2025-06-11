@@ -4,24 +4,31 @@ import axios from "axios";
 import type { IProxyProduct, ISellerProduct } from "@/types/data";
 import type { IBaseError } from "@/types/error";
 
+export type ProductType = ISellerProduct & IProxyProduct;
+
 interface IProductStore {
   isLoading: boolean;
   isError: boolean;
   error: IBaseError | null;
-  productList: Array<ISellerProduct & IProxyProduct>;
-  setProductList: (productList: Array<ISellerProduct & IProxyProduct>) => void;
-  getProductList: (skipProductList?: Array<ISellerProduct & IProxyProduct>) => Promise<void>;
-  deleteProductList: (productList: Array<ISellerProduct & IProxyProduct>) => Promise<void>;
+  productList: Array<ProductType>;
+  getProductById: (productId: number) => ProductType | undefined;
+  setProductList: (productList: Array<ProductType>) => void;
+  getProductList: (skipProductList?: Array<ProductType>) => Promise<void>;
+  deleteProductList: (productList: Array<ProductType>) => Promise<void>;
   deleteProductListItem: (productId: number) => Promise<void>;
 }
 
 export const useProductStore = create<IProductStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       isLoading: false,
       isError: false,
       error: null,
       productList: [],
+      getProductById: (productId) => {
+        const productList = get().productList;
+        return productList.find((item) => item.id === productId);
+      },
       setProductList: (productList) => set({ productList }),
       getProductList: async (skipProductList = []) => {
         const response = await axios.get("http://127.0.0.1:3000/api/proxy");

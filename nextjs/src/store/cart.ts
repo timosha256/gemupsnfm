@@ -24,7 +24,8 @@ interface ICartStore {
   postItem: (
     proxyProductId: number,
     quantity: number,
-    generationParams: string
+    generationParams: string,
+    totalPrice?: number
   ) => Promise<void>;
   updateItem: (
     itemId: number,
@@ -83,7 +84,7 @@ export const useCartStore = create<ICartStore>()(
           set({ isLoading: false, isError: true, error: e?.response?.data });
         }
       },
-      postItem: async (proxyProductId, quantity, generationParams) => {
+      postItem: async (proxyProductId, quantity, generationParams, totalPrice) => {
         const existData = get().data;
         if (existData && existData?.items?.length > 0) {
           const isItemExist = existData.items.find((item) => item.id === proxyProductId);
@@ -102,16 +103,19 @@ export const useCartStore = create<ICartStore>()(
               userId: 0,
               guestSessionId: "",
               proxyProductId,
-              quantity: 1,
+              quantity,
               generationParams,
               expiresAt: "",
               createdAt: "",
               updatedAt: "",
               unitPrice: item.pricePerProxy,
-              totalPrice: item.pricePerProxy,
+              totalPrice: !!totalPrice ? String(totalPrice) : String(parseFloat(item.pricePerProxy) * quantity),
               isAvailable: item.stockAvailable > 0,
               stockStatus: "in_stock"
             };
+            
+            console.log(cartItem);
+            console.log(!!totalPrice);
 
             set((state) => ({
               data: state.data

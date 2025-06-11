@@ -1,6 +1,35 @@
-import type { IProxyBaseData, ProxyFormatType, ProxyProtocolType } from "@/types/data";
+import type {
+  IProxyBaseData,
+  ProxyFormatType,
+  ProxyProtocolType,
+} from "@/types/data";
 
-export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
+export const generateRandomNumber = (
+  min: number,
+  max: number,
+  options: {
+    returnType?: "int" | "float",
+    abs?: boolean;
+  } | undefined = {
+    returnType: "int",
+    abs: true
+  }
+) => {
+  let n = (Math.random() * (max - min)) + min;
+
+  if (options?.returnType === "int") {
+    n = parseInt(n.toString());
+  }
+
+  if (options?.abs) {
+    n = Math.abs(n);
+  }
+
+  return n;
+};
 
 export function calculateDateByDays(
   daysDifference: number,
@@ -24,7 +53,7 @@ export function calculateDateByDays(
 
 export function getProxyStr(proxy: IProxyBaseData, format: ProxyFormatType) {
   const { type, ip, port, login, password } = proxy;
-  
+
   switch (format) {
     case "ip:port:login:password":
       return `${type.toLowerCase()}://${ip}:${port}:${login}:${password}`;
@@ -35,19 +64,27 @@ export function getProxyStr(proxy: IProxyBaseData, format: ProxyFormatType) {
     case "login:password@ip:port":
       return `${type.toLowerCase()}://${login}:${password}@${ip}:${port}`;
   }
-};
+}
 
-export function generateRandomProxy(protocol?: ProxyProtocolType): IProxyBaseData {
+export function generateRandomProxy(
+  protocol?: ProxyProtocolType
+): IProxyBaseData {
   const types: ProxyProtocolType[] = ["HTTP", "HTTPS", "SOCKS5"];
   const type = protocol || types[Math.floor(Math.random() * types.length)];
-  const ip = Array(4).fill(0).map(() => Math.floor(Math.random() * 256)).join('.');
+  const ip = Array(4)
+    .fill(0)
+    .map(() => Math.floor(Math.random() * 256))
+    .join(".");
   const port = Math.floor(Math.random() * (65535 - 1024 + 1)) + 1024;
 
   const generateRandomString = (length: number) => {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
     for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
     }
     return result;
   };
