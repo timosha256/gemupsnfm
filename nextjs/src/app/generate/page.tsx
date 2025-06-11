@@ -3,6 +3,7 @@
 import type { Metadata } from "next";
 import { SetStateAction, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import clipboardCopy from "clipboard-copy";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SideNav } from "@/components/side-nav";
@@ -12,8 +13,9 @@ import { Scripts } from "@/components/shared/scripts";
 import { Dropdown } from "@/components/ui/dropdown";
 import { generatedProxyList } from "@/data";
 import { IDropdown } from "@/types/component";
-import { ProxyProtocolType, ProxySessionType, IProxyProviderData, ProxyLocationType, ProxyFormatType } from "@/types/data";
+import { ProxyProtocolType, ProxySessionType, IProxyProviderData, ProxyLocationType, ProxyFormatType, IProxyBaseData } from "@/types/data";
 import { useProxyListStore, useProxySettingsStore } from "@/store/proxy";
+import { getProxyStr, sleep } from "@/utils";
 
 // export const metadata: Metadata = {
 //   title: "GEMUPS",
@@ -31,6 +33,8 @@ import { useProxyListStore, useProxySettingsStore } from "@/store/proxy";
 
 
 export default function GeneratePage() {
+  const { proxyList, setProxyList, getProxyList } = useProxyListStore((state) => state);
+  const proxySettings = useProxySettingsStore((state) => state);
   const {
     providerList,
     protocol,
@@ -43,15 +47,18 @@ export default function GeneratePage() {
     sessionType,
     ttl,
     setValue
-  } = useProxySettingsStore((state) => state);
-  const { proxyList, setProxyList, getProxyList } = useProxyListStore((state) => state);
+  } = proxySettings;
 
   const [isMoreOptionsVisible, setIsMoreOptionsVisible] = useState<boolean>(false);
+  const [isProxiesCopied, setIsProxiesCopied] = useState<boolean>(false);
+  const [proxyStrList, setProxyStrList] = useState<string[]>(
+    proxyList.map((proxy) => getProxyStr(proxy, format))
+  );
   
-  const [proxyProtocol, setProxyProtocol] = useState<ProxyProtocolType>(protocol);
-  const [proxySessionType, setProxySessionType] = useState<ProxySessionType>(sessionType);
-  const [proxyCount, setProxyCount] = useState<number>(count);
-  const [proxyLocationType, setProxyLocationType] = useState<ProxyLocationType>(locationType);
+  // const [proxyProtocol, setProxyProtocol] = useState<ProxyProtocolType>(protocol);
+  // const [proxySessionType, setProxySessionType] = useState<ProxySessionType>(sessionType);
+  // const [proxyCount, setProxyCount] = useState<number>(count);
+  // const [proxyLocationType, setProxyLocationType] = useState<ProxyLocationType>(locationType);
 
   const [proxyProviderList, setProxyProviderList] = useState<IProxyProviderData[]>([
     { id: uuidv4(), isActive: false, icon: "/img/flag/poland.svg", name: "Lola", tag: "1234" },
@@ -97,9 +104,61 @@ export default function GeneratePage() {
     { id: "ttl-30", isActive: false, label: "30 sec" },
   ]);
 
+  // useEffect(() => {
+  //   getProxyList();
+  // }, []);
+
   useEffect(() => {
-    getProxyList();
-  }, []);
+    const providerNameList = providerList.map((item) => item.name)
+
+    setProxyProviderList(
+      proxyProviderList.map((item) => ({
+        ...item,
+        isActive: providerNameList.includes(item.name)
+      }))
+    );
+  }, [providerList]);
+
+  useEffect(() => {
+    setProxyFormatList(
+      proxyFormatList.map((item) => ({ ...item, isActive: item.label === format }))
+    );
+  }, [format]);
+
+  useEffect(() => {
+    setProxyCountryList(
+      proxyCountryList.map((item) => ({ ...item, isActive: item.label === country }))
+    );
+  }, [country]);
+
+  useEffect(() => {
+    setProxyStateList(
+      proxyStateList.map((item) => ({ ...item, isActive: item.label === state }))
+    );
+  }, [state]);
+
+  useEffect(() => {
+    setProxyCityList(
+      proxyCityList.map((item) => ({ ...item, isActive: item.label === city }))
+    );
+  }, [city]);
+
+  useEffect(() => {
+    setProxyTtlList(
+      proxyTtlList.map((item) => ({ ...item, isActive: item.label === ttl }))
+    );
+  }, [ttl]);
+
+  const handleProxiesCopy = async () => {
+    await clipboardCopy(
+      proxyList.map((proxy) => getProxyStr(proxy, format)).join("\n")
+    );
+
+    setIsProxiesCopied(true);
+    await sleep(500);
+    setIsProxiesCopied(false);
+
+  }
 
   const handleSelectProxyProvider = (id: string | number) => {
     setProxyProviderList(
@@ -112,21 +171,22 @@ export default function GeneratePage() {
 
   const handleSaveSettings = () => {
     const activeItemData = {
-      format: proxyFormatList.find((item) => item.isActive)?.label || "ip:port:login:password",
-      country: proxyCountryList.find((item) => item.isActive)?.label || "",
-      state: proxyStateList.find((item) => item.isActive)?.label || "",
-      city: proxyCityList.find((item) => item.isActive)?.label || ""
+      providerList: proxyProviderList.filter((item) => item.isActive),
+      format: proxyFormatList.find((item) => item.isActive)?.label || format,
+      country: proxyCountryList.find((item) => item.isActive)?.label || country,
+      state: proxyStateList.find((item) => item.isActive)?.label || state,
+      city: proxyCityList.find((item) => item.isActive)?.label || city,
+      ttl: proxyTtlList.find((item) => item.isActive)?.label || ttl
     }
 
-    setValue("providerList", proxyProviderList);
-    setValue("protocol", proxyProtocol);
-    setValue("count", proxyCount);
-    // @ts-ignore
-    setValue("format", activeItemData.format?.label)
-    setValue("locationType", proxyLocationType);
-    setValue("country", activeItemData.country)
+    setValue("providerList", activeItemData.providerList);
+    setValue("format", activeItemData.format as ProxyFormatType);
+    setValue("country", activeItemData.country);
     setValue("state", activeItemData.state);
     setValue("city", activeItemData.city);
+    
+    setProxyList([]);
+    getProxyList(proxySettings);
   };
 
   return (
@@ -191,15 +251,15 @@ export default function GeneratePage() {
                           <div className="box__btn-list">
                             <button
                               type="button"
-                              className={`box__btn ${proxyProtocol === "HTTPS" && "active"}`}
-                              onClick={() => setProxyProtocol("HTTPS")}
+                              className={`box__btn ${protocol === "HTTPS" && "active"}`}
+                              onClick={() => setValue("protocol", "HTTPS")}
                             >
                               <span className="box__btn-caption">HTTP(S)</span>
                             </button>
                             <button
                               type="button"
-                              className={`box__btn ${proxyProtocol === "SOCKS5" && "active"}`}
-                              onClick={() => setProxyProtocol("SOCKS5")}
+                              className={`box__btn ${protocol === "SOCKS5" && "active"}`}
+                              onClick={() => setValue("protocol", "SOCKS5")}
                             >
                               <span className="box__btn-caption">SOCKS5</span>
                             </button>
@@ -216,20 +276,20 @@ export default function GeneratePage() {
                                 id="minus"
                                 className="minus-btn"
                                 data-input-id="generate-proxy-count-input"
-                                onClick={() => setProxyCount(proxyCount === 0 ? 0 : proxyCount - 1)}
+                                onClick={() => setValue("count", count === 0 ? 0 : count - 1)}
                               ></button>
                               <input
                                 id="generate-proxy-count-input"
                                 className="generate-page__count-panel-input"
                                 type="number"
-                                value={proxyCount}
-                                onChange={(e) => setProxyCount(parseInt(e.target.value) < 0 ? 0 : parseInt(e.target.value))}
+                                value={count}
+                                onChange={(e) => setValue("count", parseInt(e.target.value) < 0 ? 0 : parseInt(e.target.value))}
                               />
                               <button
                                 id="plus"
                                 className="plus-btn"
                                 data-input-id="generate-proxy-count-input"
-                                onClick={() => setProxyCount(proxyCount + 1)}
+                                onClick={() => setValue("count", count + 1)}
                               ></button>
                             </div>
                           </div>
@@ -268,16 +328,16 @@ export default function GeneratePage() {
                             <div className="generate-page__location-panel box__row">
                               <div className="generate-page__location-panel-btn-list box__btn-list">
                                 <button
-                                  className={`box__btn ${proxyLocationType === "Random" && "active"}`}
+                                  className={`box__btn ${locationType === "Random" && "active"}`}
                                   type="button"
-                                  onClick={() => setProxyLocationType("Random")}
+                                  onClick={() => setValue("locationType", "Random")}
                                 >
                                   Random
                                 </button>
                                 <button
-                                  className={`box__btn ${proxyLocationType === "Country" && "active"}`}
+                                  className={`box__btn ${locationType === "Country" && "active"}`}
                                   type="button"
-                                  onClick={() => setProxyLocationType("Country")}
+                                  onClick={() => setValue("locationType", "Country")}
                                 >
                                   Country
                                 </button>
@@ -290,7 +350,7 @@ export default function GeneratePage() {
                                   list={proxyCountryList}
                                   setList={setProxyCountryList}
                                   enableIcon
-                                  disabled={proxyLocationType === "Random"}
+                                  disabled={locationType === "Random"}
                                 />
                                 <Dropdown
                                   id="generate-proxy-state-dropdown"
@@ -299,7 +359,7 @@ export default function GeneratePage() {
                                   list={proxyStateList}
                                   setList={setProxyStateList}
                                   enableIcon
-                                  disabled={proxyLocationType === "Random"}
+                                  disabled={locationType === "Random"}
                                 />
                                 <Dropdown
                                   id="generate-proxy-city-dropdown"
@@ -308,7 +368,7 @@ export default function GeneratePage() {
                                   list={proxyCityList}
                                   setList={setProxyCityList}
                                   enableIcon
-                                  disabled={proxyLocationType === "Random"}
+                                  disabled={locationType === "Random"}
                                 />
                               </div>
                             </div>
@@ -322,15 +382,15 @@ export default function GeneratePage() {
                               <div className="generate-page__session-panel-btn-list box__btn-list">
                                 <button
                                   type="button"
-                                  className={`box__btn ${proxySessionType === "Dynamic" && "active"}`}
-                                  onClick={() => setProxySessionType("Dynamic")}
+                                  className={`box__btn ${sessionType === "Dynamic" && "active"}`}
+                                  onClick={() => setValue("sessionType", "Dynamic")}
                                 >
                                   Dynamic
                                 </button>
                                 <button
                                   type="button"
-                                  className={`box__btn ${proxySessionType === "Static" && "active"}`}
-                                  onClick={() => setProxySessionType("Static")}
+                                  className={`box__btn ${sessionType === "Static" && "active"}`}
+                                  onClick={() => setValue("sessionType", "Static")}
                                 >
                                   Static
                                 </button>
@@ -379,16 +439,23 @@ export default function GeneratePage() {
                   </div>
                   <div className="generated__area">
                     <div className="top__head">
-                      <div className="title">{proxyList.length} proxy generated</div>
-                      <button type="button" className="genCopy">
-                        Copy<i className="ico-copy"></i>
+                      <div className="title">{proxyList.filter((proxy) => proxy.type === protocol).length} proxy generated</div>
+                      <button
+                        type="button"
+                        className="genCopy"
+                        style={isProxiesCopied ? { backgroundColor: "#07462E" } : undefined}
+                        onClick={handleProxiesCopy}
+                      >
+                        {isProxiesCopied ? "Copied" : "Copy"}<i className="ico-copy"></i>
                       </button>
                     </div>
                     <div className="generated__list">
-                      {proxyList.map(({ ip, port, login, password }, idx) => (
+                      {proxyList
+                        .filter((proxy) => proxy.type === protocol)
+                        .map((proxy, idx) => (
                         <div className="list__item" key={uuidv4()}>
                           <span className="number">{idx + 1}</span>
-                          <span className="value">{`${ip}:${port}:${login}:${password}`}</span>
+                          <span className="value">{getProxyStr(proxy, format)}</span>
                         </div>
                       ))}
                     </div>

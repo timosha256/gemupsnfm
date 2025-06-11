@@ -1,3 +1,5 @@
+import { TTL } from "@/constants";
+
 export type LanguageType = "EN" | "RU" | "KZ" | "FR";
 export type CurrencyCodeType = "USD" | "EUR";
 export type ProxyProtocolType = "HTTP" | "HTTPS" | "SOCKS5";
@@ -76,6 +78,19 @@ export interface ISellerProduct {
   price: number;
   currency: string;
   progress: number;
+}
+
+export interface IProxySettings {
+  providerList: IProxyProviderData[];
+  protocol: ProxyProtocolType;
+  count: number;
+  format: ProxyFormatType;
+  locationType: ProxyLocationType;
+  country: string;
+  state: string;
+  city: string;
+  sessionType: ProxySessionType;
+  ttl: keyof typeof TTL;
 }
 
 export interface IProxyProviderData {

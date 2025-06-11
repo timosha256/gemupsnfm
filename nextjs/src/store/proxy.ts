@@ -5,6 +5,7 @@ import { TTL } from "@/constants";
 import type {
   IProxyBaseData,
   IProxyProviderData,
+  IProxySettings,
   ProxyFormatType,
   ProxyLocationType,
   ProxyProtocolType,
@@ -12,17 +13,7 @@ import type {
 } from "@/types/data";
 import type { IBaseError } from "@/types/error";
 
-interface IProxySettingsStore {
-  providerList: IProxyProviderData[];
-  protocol: ProxyProtocolType;
-  count: number;
-  format: ProxyFormatType;
-  locationType: ProxyLocationType;
-  country: string;
-  state: string;
-  city: string;
-  sessionType: ProxySessionType;
-  ttl: keyof typeof TTL;
+interface IProxySettingsStore extends IProxySettings {
   setValue: <K extends keyof Omit<IProxySettingsStore, "setValue">>(
     key: K,
     value: IProxySettingsStore[K]
@@ -35,7 +26,7 @@ interface IProxyListStore {
   error: IBaseError | null;
   proxyList: IProxyBaseData[];
   setProxyList: (proxyList: IProxyBaseData[]) => void;
-  getProxyList: () => Promise<void>
+  getProxyList: (proxySettings?: IProxySettings) => Promise<void>
 }
 
 export const useProxySettingsStore = create<IProxySettingsStore>()(
@@ -76,8 +67,24 @@ export const useProxyListStore = create<IProxyListStore>()(
       error: null,
       proxyList: [],
       setProxyList: (proxyList) => set({ proxyList }),
-      getProxyList: async () => {
-        const response = await axios.get("http://127.0.0.1:3000/api/proxyList");
+      getProxyList: async (proxySettings) => {
+        let url = "http://127.0.0.1:3000/api/proxyList";
+        if (proxySettings) {
+          const onlyValidProxySettings: Record<string, any> = {};
+          for (const [key, value] of Object.entries(proxySettings)) {
+            if (
+              !["function", "object", "symbol"].includes(typeof(key)) &&
+              !["function", "object", "symbol"].includes(typeof(value))
+            ) {
+              onlyValidProxySettings[key] = value;
+            }
+          }
+
+          const searchParams = new URLSearchParams(onlyValidProxySettings as unknown as Record<string, string>)
+          url = `${url}?${searchParams.toString()}`;
+        }
+
+        const response = await axios.get(url);
         if ([200, 201].includes(response.status)) {
           set((state) => {
             const proxyListData: Record<string, IProxyBaseData> = {};

@@ -22,7 +22,6 @@ export const Dropdown: React.FC<Props> = ({
   const [current, setCurrent] = useState<string>("");
 
   useEffect(() => {
-    console.log(1000);
     const item = list.find((item) => item.isActive);
     item && setCurrent(item.label);
     if (!item && caption) {
