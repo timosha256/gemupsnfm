@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { IProxyProduct, ISellerProduct } from "@/types/data";
 import { useCartStore } from "@/store/cart";
+import Link from "next/link";
 
 
 type Props = ISellerProduct & IProxyProduct;
@@ -94,7 +95,7 @@ export const ProductItem: React.FC<Props> = ({
               </div>
             </div>
             <div className="content__area">
-              <span className="name">{name}</span>
+              <Link className="name" href={`/accounts/${id}`}>{name}</Link>
               <div className="sub__content">
                 <p>{description}</p>
               </div>

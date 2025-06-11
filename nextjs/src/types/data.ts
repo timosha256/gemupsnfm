@@ -14,6 +14,7 @@ export type ProxyFormatType =
 export interface IAppSettings {
   language: LanguageType;
   isSidebarOpen: boolean;
+  isMenuOpen: boolean;
 }
 
 export interface IUserBaseInfo {

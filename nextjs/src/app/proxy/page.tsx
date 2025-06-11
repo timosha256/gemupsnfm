@@ -63,8 +63,6 @@ export default function ProxyPage() {
         .filter((item) => item.isActive)
         .map((item) => item.label)
     );
-
-    setIsAllProxyCategory(proxyCategoryList.length === activeCategoryList.length);
   }, [proxyCategoryList]);
 
   useEffect(() => {

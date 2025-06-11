@@ -1,6 +1,7 @@
 "use client";
 
 import type { Metadata } from "next";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { PageHeader } from "@/components/headers/page-header";
@@ -14,6 +15,7 @@ import { Footer } from "@/components/layout/footer";
 import { Scripts } from "@/components/shared/scripts";
 import { UnverifiedBox } from "@/components/shared/unverified-box";
 import { useAuthStore } from "@/store/auth";
+import { useProductStore } from "@/store/product";
 
 // export const metadata: Metadata = {
 //   title: "GEMUPS",
@@ -29,8 +31,14 @@ import { useAuthStore } from "@/store/auth";
 // };
 
 export default function AccountsPage() {
-  const [comments, setComments] = useState<ICommentItem[]>([]);
   const { user } = useAuthStore((state) => state);
+  const { productList } = useProductStore();
+
+  const [comments, setComments] = useState<ICommentItem[]>([]);
+
+  const pathname = usePathname();
+  const pathnameItems = pathname.split("/");
+  const id = pathnameItems[pathnameItems.length - 1];
 
   useEffect(() => {
     setComments(marketplaceComments.accounts);

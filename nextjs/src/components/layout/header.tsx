@@ -1,6 +1,7 @@
-"use client"
+"use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import LangSwitch from "../shared/header/lang-switch";
 import Burger from "../shared/header/burger";
@@ -10,20 +11,37 @@ import AuthActions from "../shared/header/auth-actions";
 import { useAuth } from "@/hooks/auth";
 import { useAuthStore } from "@/store/auth";
 import { useCartStore } from "@/store/cart";
-
+import { useSettingsStore } from "@/store/settings";
 
 export const Header: React.FC = () => {
   const { isAuth } = useAuth();
   const { user, logout } = useAuthStore((state) => state);
+  const { isMenuOpen, setValue: setSettingsValue } = useSettingsStore(
+    (state) => state
+  );
 
   const menuItemList = [
     { id: uuidv4(), ico: "ico-user", label: "My Profile", href: "/profile" },
-    { id: uuidv4(), ico: "ico-cart-bag", label: "My Purchases", href: "/purchases" },
-    { id: uuidv4(), ico: "ico-arrow-menu-left", label: "Transactions", href: "/transactions" },
+    {
+      id: uuidv4(),
+      ico: "ico-cart-bag",
+      label: "My Purchases",
+      href: "/purchases",
+    },
+    {
+      id: uuidv4(),
+      ico: "ico-arrow-menu-left",
+      label: "Transactions",
+      href: "/transactions",
+    },
     { id: uuidv4(), ico: "ico-tag", label: "Seller", href: "/seller" },
     { id: uuidv4(), ico: "ico-users", label: "Referral", href: "/referral" },
-    { id: uuidv4(), ico: "ico-logout", label: "Logout", href: "/" }
+    { id: uuidv4(), ico: "ico-logout", label: "Logout", href: "/" },
   ];
+
+  useEffect(() => {
+    console.log(isMenuOpen);
+  }, [isMenuOpen]);
 
   if (isAuth) {
     return (
@@ -39,7 +57,9 @@ export const Header: React.FC = () => {
             <div className="cash__wrapper">
               <i className="ico-wallet"></i>
               <a href="#" className="billing">
-                <span className="value">{user?.balance ? parseFloat(user.balance).toFixed(2) : ""}</span>
+                <span className="value">
+                  {user?.balance ? parseFloat(user.balance).toFixed(2) : ""}
+                </span>
                 <span className="currency">$</span>
               </a>
             </div>
@@ -53,7 +73,13 @@ export const Header: React.FC = () => {
                 <ul className="userMenu__items">
                   {menuItemList.map(({ id, ico, label, href }) => (
                     <li className="userMenu__item" key={id}>
-                      <Link href={href} title="" onClick={label.toLowerCase() === "logout" ? logout : () => null}>
+                      <Link
+                        href={href}
+                        title=""
+                        onClick={
+                          label.toLowerCase() === "logout" ? logout : () => null
+                        }
+                      >
                         <i className={ico}></i>
                         {label}
                       </Link>
@@ -65,10 +91,13 @@ export const Header: React.FC = () => {
             <Cart />
             <Burger />
           </div>
-          <div className="mobileMenu__wrapper">
+          <div className={`mobileMenu__wrapper ${isMenuOpen ? "active" : ""}`}>
             <div className="head__area">
               <LangSwitch />
-              <button className="closeMenu">
+              <button
+                className="closeMenu"
+                onClick={() => setSettingsValue("isMenuOpen", false)}
+              >
                 <i className="ico-close"></i>
               </button>
             </div>
@@ -116,15 +145,18 @@ export const Header: React.FC = () => {
           </a>
         </div>
         <div className="rightSide">
-         <LangSwitch />
-         <AuthActions />
-         <Cart />
-         <Burger />
+          <LangSwitch />
+          <AuthActions />
+          <Cart />
+          <Burger />
         </div>
         <div className="mobileMenu__wrapper">
           <div className="head__area">
             <LangSwitch />
-            <button className="closeMenu">
+            <button
+              className="closeMenu"
+              onClick={() => setSettingsValue("isMenuOpen", false)}
+            >
               <i className="ico-close"></i>
             </button>
           </div>

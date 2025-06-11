@@ -11,6 +11,7 @@ export const useSettingsStore = create<SettingsStoreType>()(
     (set) => ({
       language: "EN",
       isSidebarOpen: true,
+      isMenuOpen: false,
       setValue: <K extends keyof Omit<IAppSettings, "setValue">>(
         key: K,
         value: IAppSettings[K]
