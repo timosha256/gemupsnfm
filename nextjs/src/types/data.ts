@@ -11,6 +11,11 @@ export type ProxyFormatType =
   | "login:password@ip:port"
   | "login:password:ip:port";
 
+export interface IAppSettings {
+  language: LanguageType;
+  isSidebarOpen: boolean;
+}
+
 export interface IUserBaseInfo {
   email: string;
   username: string;

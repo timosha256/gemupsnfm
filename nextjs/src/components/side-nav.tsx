@@ -1,9 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useSettingsStore } from "@/store/settings";
 
 export const SideNav: React.FC = () => {
+  const { isSidebarOpen, setValue } = useSettingsStore();
+
   return (
-    <div className="fixedNavmenu">
+    <div className={`fixedNavmenu ${!isSidebarOpen && "closed"}`}>
       <div className="head__block">
         <div className="logo__wrapper">
           <Link href="/" title="main">
@@ -19,10 +24,18 @@ export const SideNav: React.FC = () => {
             />
           </Link>
         </div>
-        <button className="menuFunction" type="button">
+        <button
+          className="menuFunction"
+          type="button"
+          onClick={() => setValue("isSidebarOpen", false)}
+        >
           <i className="ico-burger-nav"></i>
         </button>
-        <button className="menuMinimal hidden" type="button">
+        <button
+          className={`menuMinimal ${isSidebarOpen && "hidden"}`}
+          type="button"
+          onClick={() => setValue("isSidebarOpen", true)}
+        >
           <i className="ico-burger-mb"></i>
         </button>
       </div>

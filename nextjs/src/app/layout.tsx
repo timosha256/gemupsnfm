@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { Viewport } from "next";
 import { AuthProvider } from "@/providers/auth";
+import { SettingsProvider } from "@/providers/settings";
 import { Inter } from "next/font/google";
 import "./globals.scss";
 
@@ -29,9 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.variable}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <SettingsProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </SettingsProvider>
       </body>
     </html>
   );

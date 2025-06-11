@@ -14,10 +14,7 @@ import type {
 import type { IBaseError } from "@/types/error";
 
 interface IProxySettingsStore extends IProxySettings {
-  setValue: <K extends keyof Omit<IProxySettingsStore, "setValue">>(
-    key: K,
-    value: IProxySettingsStore[K]
-  ) => void;
+  
 }
 
 interface IProxyListStore {

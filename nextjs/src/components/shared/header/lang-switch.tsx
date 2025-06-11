@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { LanguageType } from "@/types/data";
+import { useSettingsStore } from "@/store/settings";
 
 interface ILangItem {
   isActive: boolean;
@@ -11,8 +12,9 @@ interface ILangItem {
 }
 
 export default function LangSwitch() {
+  const { language, setValue } = useSettingsStore();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [currentLanguage, setCurrentLanguage] = useState<LanguageType>("EN");
   const [langItemList, setLangItemList] = useState<ILangItem[]>([
     { isActive: true, label: "EN", language: "EN" },
     { isActive: false, label: "RU", language: "RU" },
@@ -21,7 +23,7 @@ export default function LangSwitch() {
   ])
 
   const handleItemClick = (language: LanguageType) => {
-    setCurrentLanguage(language);
+    setValue("language", language);
     setLangItemList(
       langItemList.map((item) => ({
         ...item,
@@ -33,7 +35,7 @@ export default function LangSwitch() {
   return (
     <div className="lang__switch">
       <div className="currect__lang" onClick={() => setIsOpen(!isOpen)}>
-        <span>{currentLanguage}</span>
+        <span>{language}</span>
         <i className="ico-arrow"></i>
       </div>
       <div className="lang__list">
